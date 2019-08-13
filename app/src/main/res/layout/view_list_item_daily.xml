@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_10"
+>
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/daily_icon"
+            android:layout_width="@dimen/space_60"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/logo_extension_read"
+            app:qmui_border_color="@android:color/white"
+            app:qmui_is_circle="true"
+    />
+
+
+    <TextView
+            android:id="@+id/daily_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Theme Title"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_20"
+            android:singleLine="true"
+            android:layout_toRightOf="@id/daily_icon"
+            android:layout_marginLeft="@dimen/space_8"
+    />
+
+    <TextView
+            android:id="@+id/daily_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Theme Sub TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitle"
+            android:textColor="@color/qmui_config_color_gray_3"
+            android:textSize="@dimen/text_size_15"
+            android:layout_below="@id/daily_title"
+            android:layout_toRightOf="@id/daily_icon"
+            android:layout_marginLeft="@dimen/space_8"
+            android:maxLines="2"
+            android:ellipsize="end"
+    />
+
+    <TextView
+            android:id="@+id/daily_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ThemeContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContent"
+            android:textColor="@color/qmui_config_color_gray_3"
+            android:textSize="@dimen/text_size_18"
+            android:layout_below="@id/daily_icon"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/space_8"
+    />
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/daily_cover"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_240"
+            android:src="@mipmap/logo_extension_read"
+            app:qmui_border_color="@android:color/white"
+            app:qmui_border_width="1px"
+            app:qmui_corner_radius="@dimen/space_6"
+            android:layout_below="@id/daily_content"
+            android:layout_marginTop="@dimen/space_8"
+    />
+
+</RelativeLayout>

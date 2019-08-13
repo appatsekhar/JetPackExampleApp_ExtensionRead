@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="none">
+
+        <item
+                android:id="@+id/nav_project_main"
+                android:icon="@mipmap/icon_tabbar_home"
+                android:title="项目主页"/>
+        <item
+                android:id="@+id/nav_browse_record"
+                android:icon="@mipmap/icon_browse_record"
+                android:title="浏览记录"/>
+
+        <item
+                android:id="@+id/nav_check_theme"
+                android:icon="@mipmap/icon_check_theme"
+                android:title="切换主题"/>
+
+        <item
+                android:id="@+id/nav_about_author"
+                android:icon="@mipmap/icon_tabbar_about"
+                android:title="关于作者"/>
+
+        <item
+                android:id="@+id/nav_clean_rom"
+                android:icon="@mipmap/icon_clean_rom"
+                android:title="清除缓存"/>
+
+    </group>
+
+
+
+</menu>
