@@ -1,5 +1,7 @@
 package com.toeii.extensionreadjetpack.fragment
 
+import android.content.Intent
+import android.view.KeyEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
@@ -88,6 +90,18 @@ class MainFragment : BaseFragment(){
                 return mPages.size
             }
         }
+    }
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            val home  = Intent(Intent.ACTION_MAIN)
+            home.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            home.addCategory(Intent.CATEGORY_HOME)
+            startActivity(home)
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     internal enum class Pager {

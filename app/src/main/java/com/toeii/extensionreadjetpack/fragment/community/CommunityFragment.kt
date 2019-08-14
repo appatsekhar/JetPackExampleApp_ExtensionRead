@@ -2,31 +2,20 @@ package com.toeii.extensionreadjetpack.fragment.community
 
 import android.graphics.Color
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.NonNull
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.qmuiteam.qmui.nestedScroll.*
-import com.qmuiteam.qmui.util.QMUIDisplayHelper
-import com.qmuiteam.qmui.util.QMUIResHelper
-import com.qmuiteam.qmui.widget.QMUIPagerAdapter
-import com.qmuiteam.qmui.widget.QMUITabSegment
-import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
-import com.toeii.extensionreadjetpack.entity.Status
-import com.toeii.extensionreadjetpack.fragment.home.RecommendAdapter
-import com.toeii.extensionreadjetpack.view.AlphaAndScalePageTransformer
+import com.toeii.extensionreadjetpack.entity.CommunityContentEntity
 import org.jetbrains.anko.find
 import java.util.ArrayList
 
@@ -44,13 +33,13 @@ class CommunityFragment : BaseFragment(){
     private lateinit var mSortAdapter: SortAdapter
 
     private val mHeadDatas = ArrayList<String>()
-    private val mDatas = ArrayList<Status>()
+    private val mDatas = ArrayList<CommunityContentEntity>()
 
     init {
 
         for(index in 1..20){
             mHeadDatas.add("")
-            mDatas.add(Status())
+            mDatas.add(CommunityContentEntity(false,0,null,"",0))
         }
 
     }
@@ -141,9 +130,9 @@ class CommunityFragment : BaseFragment(){
 
 
 
-internal class SortAdapter : BaseQuickAdapter<Status, BaseViewHolder>(R.layout.view_list_item_community_sort) {
+internal class SortAdapter : BaseQuickAdapter<CommunityContentEntity, BaseViewHolder>(R.layout.view_list_item_community_sort) {
 
-    override fun convert(helper: BaseViewHolder, item: Status) {
+    override fun convert(helper: BaseViewHolder, item: CommunityContentEntity) {
 //        Glide.with(mContext) .load(item.userAvatar).into(helper.itemView.theme_icon)
         helper.setText(R.id.community_title, "Hoteis"+helper.layoutPosition)
     }
@@ -151,9 +140,9 @@ internal class SortAdapter : BaseQuickAdapter<Status, BaseViewHolder>(R.layout.v
 }
 
 
-internal class CommunityAdapter : BaseQuickAdapter<Status, BaseViewHolder>(R.layout.view_list_item_community) {
+internal class CommunityAdapter : BaseQuickAdapter<CommunityContentEntity, BaseViewHolder>(R.layout.view_list_item_community) {
 
-    override fun convert(helper: BaseViewHolder, item: Status) {
+    override fun convert(helper: BaseViewHolder, item: CommunityContentEntity) {
 //        Glide.with(mContext) .load(item.userAvatar).into(helper.itemView.theme_icon)
 //        helper.setText(R.id.theme_title, "Hoteis in Rio de Janeiro")
 //        helper.setText(R.id.theme_subtitle, "Hoteis in Rio de JaneiroJaneiroJaneiroJaneiroJaneiroJaneiroJaneiroJaneiroJaneiroJaneiro")

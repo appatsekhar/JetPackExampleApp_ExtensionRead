@@ -17,6 +17,7 @@ import com.qmuiteam.qmui.widget.QMUITopBar
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
+import com.toeii.extensionreadjetpack.fragment.nav.BrowseRecordFragment
 import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.find
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -107,6 +108,7 @@ class HomeFragment : BaseFragment(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.nav_browse_record -> {
                 toast("nav_browse_record")
+                startFragment(BrowseRecordFragment())
             }
             R.id.nav_check_theme -> {
                 toast("nav_check_theme")
@@ -119,15 +121,6 @@ class HomeFragment : BaseFragment(), NavigationView.OnNavigationItemSelectedList
             }
         }
         return true
-    }
-
-    //TODO DrawerLayout被QMUIFragmentActivity重建
-    override fun onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
     }
 
     private fun getPagerAdapter(): QMUIFragmentPagerAdapter {

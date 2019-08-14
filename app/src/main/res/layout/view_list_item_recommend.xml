@@ -5,8 +5,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_10"
-                android:paddingLeft="@dimen/space_10"
-                android:paddingRight="@dimen/space_10"
 >
 
     <TextView
@@ -19,6 +17,7 @@
             android:singleLine="true"
             android:drawableRight="@mipmap/icon_arrow_right"
             android:drawablePadding="@dimen/space_5"
+            android:layout_marginLeft="@dimen/space_10"
     />
 
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
@@ -31,6 +30,8 @@
             app:qmui_border_color="@android:color/white"
             app:qmui_border_width="1px"
             app:qmui_corner_radius="@dimen/space_6"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_10"
     />
 
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
@@ -41,7 +42,8 @@
             app:qmui_border_color="@android:color/white"
             app:qmui_is_circle="true"
             android:layout_below="@id/group_cover"
-            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginLeft="@dimen/space_10"
     />
 
 
@@ -78,7 +80,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_below="@id/theme_icon"
-            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_10"
     >
 
         <LinearLayout
@@ -187,6 +191,12 @@
 
 
     </LinearLayout>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:background="@color/qmui_config_color_gray_9"
+          android:layout_marginTop="@dimen/space_20"
+          android:layout_below="@id/theme_layout"/>
 
 
 </RelativeLayout>

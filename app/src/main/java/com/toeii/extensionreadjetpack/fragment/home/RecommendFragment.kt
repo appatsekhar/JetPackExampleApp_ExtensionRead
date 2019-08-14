@@ -17,7 +17,7 @@ import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
-import com.toeii.extensionreadjetpack.entity.Status
+import com.toeii.extensionreadjetpack.entity.HomeRecommendEntity
 import com.toeii.extensionreadjetpack.view.AlphaAndScalePageTransformer
 import org.jetbrains.anko.find
 import java.util.ArrayList
@@ -37,13 +37,13 @@ class RecommendFragment : BaseFragment(){
     private lateinit var mHeadViewAdapter: QMUIPagerAdapter
 
     private val mHeadDatas = ArrayList<String>()
-    private val mDatas = ArrayList<Status>()
+    private val mDatas = ArrayList<HomeRecommendEntity>()
 
     init {
 
         for(index in 1..20){
             mHeadDatas.add("")
-            mDatas.add(Status())
+            mDatas.add(HomeRecommendEntity(false,0,null,"",0))
         }
 
     }
@@ -158,9 +158,9 @@ class RecommendFragment : BaseFragment(){
 }
 
 
-internal class RecommendAdapter : BaseQuickAdapter<Status, BaseViewHolder>(R.layout.view_list_item_recommend) {
+internal class RecommendAdapter : BaseQuickAdapter<HomeRecommendEntity, BaseViewHolder>(R.layout.view_list_item_recommend) {
 
-    override fun convert(helper: BaseViewHolder, item: Status) {
+    override fun convert(helper: BaseViewHolder, item: HomeRecommendEntity) {
 //        Glide.with(mContext) .load(item.userAvatar).into(helper.itemView.theme_icon)
         helper.setText(R.id.theme_title, "Hoteis in Rio de Janeiro")
         helper.setText(R.id.theme_subtitle, "Hoteis in Rio de JaneiroJaneiroJaneiroJaneiroJaneiroJaneiroJaneiroJaneiroJaneiroJaneiro")
