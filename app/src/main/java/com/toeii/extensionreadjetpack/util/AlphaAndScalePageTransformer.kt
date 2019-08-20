@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.view
+package com.toeii.extensionreadjetpack.util
 
 import android.view.View
 import androidx.viewpager.widget.ViewPager

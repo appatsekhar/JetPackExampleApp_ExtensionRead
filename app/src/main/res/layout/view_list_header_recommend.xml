@@ -9,17 +9,28 @@
             android:id="@+id/item_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Item Title"
+            android:text="精彩推荐"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_24"
+            android:textSize="@dimen/text_size_22"
             android:singleLine="true"
+            android:textStyle="bold"
             android:layout_marginLeft="@dimen/space_10"
             android:layout_marginTop="@dimen/space_10"
     />
 
-    <com.qmuiteam.qmui.widget.QMUIViewPager
+    <com.stx.xhb.androidx.XBanner
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/item_pager"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_240"/>
+            android:layout_height="@dimen/space_240"
+            app:AutoPlayTime="3000"
+            app:pointsVisibility="false"
+            app:isClipChildrenMode="true"
+            app:clipChildrenLeftRightMargin="@dimen/space_14"
+            app:clipChildrenTopBottomMargin="0dp"
+            app:pageChangeDuration="1000"
+            android:layout_marginTop="@dimen/space_10"
+    />
+
 
 </LinearLayout>

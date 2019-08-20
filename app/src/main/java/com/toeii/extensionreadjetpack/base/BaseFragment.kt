@@ -15,14 +15,23 @@
  */
 
 package com.toeii.extensionreadjetpack.base
+
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.qmuiteam.qmui.arch.QMUIFragment
+import org.jetbrains.anko.contentView
 
-abstract class BaseFragment : QMUIFragment(){
+abstract class BaseFragment<VB : ViewDataBinding>  : QMUIFragment(){
+
+    protected lateinit var mBinding: VB
 
     override fun onCreateView(): View {
-        val view = LayoutInflater.from(activity).inflate(getLayoutId(), null)
+        val viewGroup = activity?.contentView as ViewGroup
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(activity), getLayoutId(),viewGroup , false)
+        val view = mBinding.root
         initView(view)
         initData()
         initListener()

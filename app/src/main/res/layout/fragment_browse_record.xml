@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+    <data>
 
-    <View android:layout_width="match_parent"
-          android:layout_height="@dimen/space_20"
-            android:background="@color/app_color"
-    />
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
-            android:id="@+id/topbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_48"
-            android:gravity="bottom"
-            app:qmui_topbar_bg_color="@color/app_color"
-            app:qmui_topbar_title_color="@android:color/white"
-            android:layout_marginTop="@dimen/space_20"
-    >
+    </data>
 
-    </com.qmuiteam.qmui.widget.QMUITopBar>
-
-    <FrameLayout
+    <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:layout_marginTop="@dimen/space_68"
-    >
-        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
-                android:id="@+id/pull_to_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
-                    android:id="@+id/coordinator"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
-    </FrameLayout>
+            >
 
-</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+        <View android:layout_width="match_parent"
+              android:layout_height="@dimen/space_20"
+              android:background="@color/app_color"
+        />
+
+        <com.qmuiteam.qmui.widget.QMUITopBar
+                android:id="@+id/topbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                android:gravity="bottom"
+                app:qmui_topbar_bg_color="@color/app_color"
+                app:qmui_topbar_title_color="@android:color/white"
+                android:layout_marginTop="@dimen/space_20"
+        >
+
+        </com.qmuiteam.qmui.widget.QMUITopBar>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:layout_marginTop="@dimen/space_68"
+        >
+            <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+                    android:id="@+id/pull_to_refresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
+                        android:id="@+id/coordinator"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+            </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+        </FrameLayout>
+
+    </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+
+</layout>

@@ -1,6 +1,7 @@
 package com.toeii.extensionreadjetpack.network
 
 import com.toeii.extensionreadjetpack.ERApplication
+import com.toeii.extensionreadjetpack.base.BaseUrlInterceptor
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,6 +19,7 @@ object RetrofitManager {
             .addConverterFactory(GsonConverterFactory.create())
             .client(genericOkClient())
             .build().create(ApiService::class.java)
+
     }
 
     private fun genericOkClient(): OkHttpClient {
@@ -30,10 +32,13 @@ object RetrofitManager {
 
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
+        val urlInterceptor = BaseUrlInterceptor()
+
         return OkHttpClient.Builder()
             .connectTimeout(5000L, TimeUnit.MILLISECONDS)
             .readTimeout(10_000, TimeUnit.MILLISECONDS)
             .writeTimeout(30_000, TimeUnit.MILLISECONDS)
+            .addInterceptor(urlInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }

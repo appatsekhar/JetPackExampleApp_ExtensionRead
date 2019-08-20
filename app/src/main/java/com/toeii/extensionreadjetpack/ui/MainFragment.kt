@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.fragment
+package com.toeii.extensionreadjetpack.ui
 
 import android.content.Intent
 import android.view.KeyEvent
@@ -9,35 +9,28 @@ import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUITabSegment
-import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
-import com.toeii.extensionreadjetpack.fragment.about.AboutFragment
-import com.toeii.extensionreadjetpack.fragment.community.CommunityFragment
-import com.toeii.extensionreadjetpack.fragment.home.HomeFragment
-import org.jetbrains.anko.find
+import com.toeii.extensionreadjetpack.databinding.FragmentMainBinding
+import com.toeii.extensionreadjetpack.ui.about.AboutFragment
+import com.toeii.extensionreadjetpack.ui.community.CommunityFragment
+import com.toeii.extensionreadjetpack.ui.home.HomeFragment
 import java.util.HashMap
 
-class MainFragment : BaseFragment(){
+class MainFragment : BaseFragment<FragmentMainBinding>(){
 
-    private lateinit var mPagerAdapter: PagerAdapter
-    private lateinit var mPages: HashMap<Pager, QMUIFragment>
-
-    private lateinit var mViewPager: QMUIViewPager
-    private lateinit var mTabSegment: QMUITabSegment
+    private val mPagerAdapter: PagerAdapter by lazy { getPagerAdapter() }
+    private val mPages: HashMap<Pager, QMUIFragment> by lazy { HashMap<Pager, QMUIFragment>() }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_main
     }
 
     override fun initView(view: View) {
-        mViewPager = view.find(R.id.main_pager)
-        mTabSegment = view.find(R.id.main_tabs)
 
         //initTab
-        mTabSegment.setDefaultNormalColor(QMUIResHelper.getAttrColor(activity, R.attr.qmui_config_color_gray_6))
-        mTabSegment.setDefaultSelectedColor(resources.getColor(R.color.app_color))
-//        homeTabs.setDefaultTabIconPosition(QMUITabSegment.ICON_POSITION_BOTTOM);
+        mBinding.mainTabs.setDefaultNormalColor(QMUIResHelper.getAttrColor(activity, R.attr.qmui_config_color_gray_6))
+        mBinding.mainTabs.setDefaultSelectedColor(resources.getColor(R.color.app_color))
 
         for(position in 1..3){
             val tab = when (position) {
@@ -56,19 +49,17 @@ class MainFragment : BaseFragment(){
                 else -> null
             }
             if(null != tab){
-                mTabSegment.addTab(tab)
+                mBinding.mainTabs.addTab(tab)
             }
         }
 
         // initPager
-        mPages = HashMap<Pager, QMUIFragment>()
         mPages[Pager.HOME] = HomeFragment()
         mPages[Pager.COMMUNITY] = CommunityFragment()
         mPages[Pager.ABOUT] = AboutFragment()
-        mPagerAdapter = getPagerAdapter()
-        mViewPager.adapter = mPagerAdapter
-        mViewPager.setSwipeable(false)
-        mTabSegment.setupWithViewPager(mViewPager, false)
+        mBinding.mainPager.adapter = mPagerAdapter
+        mBinding.mainPager.setSwipeable(false)
+        mBinding.mainTabs.setupWithViewPager(mBinding.mainPager, false)
     }
 
     override fun initData() {

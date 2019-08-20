@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.fragment.home
+package com.toeii.extensionreadjetpack.ui.home.daily
 
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +11,14 @@ import com.qmuiteam.qmui.nestedScroll.*
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
+import com.toeii.extensionreadjetpack.databinding.FragmentDailyBinding
 import com.toeii.extensionreadjetpack.entity.HomeDailyEntity
-import org.jetbrains.anko.find
 import java.util.ArrayList
 
-class DailyFragment : BaseFragment(){
-    private lateinit var mPullToRefresh: QMUIPullRefreshLayout
-    private lateinit var mCoordinatorScroll: QMUIContinuousNestedScrollLayout
+class DailyFragment : BaseFragment<FragmentDailyBinding>(){
 
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mDailyAdapter: DailyAdapter
+    private val mRecyclerView: RecyclerView by lazy { QMUIContinuousNestedBottomRecyclerView(context!!) }
+    private val mDailyAdapter: DailyAdapter by lazy { DailyAdapter() }
 
     private val mHeadDatas = ArrayList<String>()
     private val mDatas = ArrayList<HomeDailyEntity>()
@@ -39,11 +37,7 @@ class DailyFragment : BaseFragment(){
     }
 
     override fun initView(view : View) {
-        mPullToRefresh = view.find(R.id.pull_to_refresh)
-        mCoordinatorScroll = view.find(R.id.coordinator)
 
-        mDailyAdapter = DailyAdapter()
-        mRecyclerView = QMUIContinuousNestedBottomRecyclerView(context!!)
         mRecyclerView.layoutManager = object : LinearLayoutManager(context) {
             override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
                 return RecyclerView.LayoutParams(
@@ -55,7 +49,7 @@ class DailyFragment : BaseFragment(){
         val recyclerViewLp = CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         recyclerViewLp.behavior = QMUIContinuousNestedBottomAreaBehavior()
         mRecyclerView.adapter = mDailyAdapter
-        mCoordinatorScroll.setBottomAreaView(mRecyclerView, recyclerViewLp)
+        mBinding.coordinator.setBottomAreaView(mRecyclerView, recyclerViewLp)
 
     }
 
@@ -66,7 +60,7 @@ class DailyFragment : BaseFragment(){
     }
 
     override fun initListener() {
-        mPullToRefresh.setOnPullListener(object : QMUIPullRefreshLayout.OnPullListener {
+        mBinding.pullToRefresh.setOnPullListener(object : QMUIPullRefreshLayout.OnPullListener {
             override fun onMoveTarget(offset: Int) {
 
             }
@@ -77,7 +71,7 @@ class DailyFragment : BaseFragment(){
 
             override fun onRefresh() {
                 //TODO data load
-                mPullToRefresh.postDelayed( { mPullToRefresh.finishRefresh() }, 3000)
+                mBinding.pullToRefresh.postDelayed( { mBinding.pullToRefresh.finishRefresh() }, 3000)
             }
         })
     }

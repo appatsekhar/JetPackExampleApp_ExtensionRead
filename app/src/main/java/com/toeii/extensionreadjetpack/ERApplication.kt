@@ -23,5 +23,4 @@ class ERApplication : Application() {
         lateinit var logger: AnkoLogger
     }
 
-
 }

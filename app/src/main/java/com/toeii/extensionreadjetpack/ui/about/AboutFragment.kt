@@ -1,22 +1,20 @@
-package com.toeii.extensionreadjetpack.fragment.about
+package com.toeii.extensionreadjetpack.ui.about
 
 import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
-import com.toeii.extensionreadjetpack.fragment.nav.BrowseRecordFragment
-import org.jetbrains.anko.find
+import com.toeii.extensionreadjetpack.databinding.FragmentAboutBinding
+import com.toeii.extensionreadjetpack.ui.nav.BrowseRecordFragment
 import org.jetbrains.anko.support.v4.toast
 import java.util.ArrayList
 
-class AboutFragment : BaseFragment(){
+class AboutFragment : BaseFragment<FragmentAboutBinding>(){
 
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mAboutAdapter: AboutAdapter
+    private val mAboutAdapter: AboutAdapter by lazy { AboutAdapter() }
 
     private val mDatas = ArrayList<String>()
 
@@ -41,13 +39,10 @@ class AboutFragment : BaseFragment(){
     }
 
     override fun initView(view : View) {
-        mRecyclerView = view.find(R.id.recyclerView_about)
-        mAboutAdapter = AboutAdapter()
-        mRecyclerView.adapter =mAboutAdapter
+        mBinding.recyclerViewAbout.adapter =mAboutAdapter
     }
 
     override fun initData() {
-
         mAboutAdapter.setNewData(mDatas)
     }
 

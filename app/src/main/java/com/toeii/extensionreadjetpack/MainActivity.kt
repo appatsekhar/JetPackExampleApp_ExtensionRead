@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.toeii.extensionreadjetpack.base.BaseFragmentActivity
-import com.toeii.extensionreadjetpack.fragment.MainFragment
+import com.toeii.extensionreadjetpack.ui.MainFragment
 
 @DefaultFirstFragment(MainFragment::class)
 class MainActivity : BaseFragmentActivity() {

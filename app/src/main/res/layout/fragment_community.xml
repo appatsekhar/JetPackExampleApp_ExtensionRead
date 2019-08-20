@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+>
 
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/space_105"
-            android:fitsSystemWindows="true">
-        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
-                android:id="@+id/pull_to_refresh"
+    <data>
+
+    </data>
+
+    <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+
+        <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
-                    android:id="@+id/coordinator"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_105"
+                android:fitsSystemWindows="true">
+            <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+                    android:id="@+id/pull_to_refresh"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
-    </FrameLayout>
+                    android:layout_height="match_parent">
+                <com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
+                        android:id="@+id/coordinator"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+            </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+        </FrameLayout>
 
-    <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="@dimen/space_2">
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_header"
+        <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_105">
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/space_2">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_105">
 
-    </androidx.cardview.widget.CardView>
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.cardview.widget.CardView>
 
 
-</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+    </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+
+</layout>

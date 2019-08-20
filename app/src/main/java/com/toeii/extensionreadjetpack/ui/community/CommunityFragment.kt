@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.fragment.community
+package com.toeii.extensionreadjetpack.ui.community
 
 import android.graphics.Color
 import android.view.Gravity
@@ -15,22 +15,18 @@ import com.qmuiteam.qmui.nestedScroll.*
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
+import com.toeii.extensionreadjetpack.databinding.FragmentCommunityBinding
 import com.toeii.extensionreadjetpack.entity.CommunityContentEntity
-import org.jetbrains.anko.find
 import java.util.ArrayList
 
-class CommunityFragment : BaseFragment(){
+class CommunityFragment : BaseFragment<FragmentCommunityBinding>(){
 
 
-    private lateinit var mPullToRefresh: QMUIPullRefreshLayout
-    private lateinit var mCoordinatorScroll: QMUIContinuousNestedScrollLayout
-    private lateinit var mTopLinearLayout: QMUIContinuousNestedTopLinearLayout
+    private val mTopLinearLayout: QMUIContinuousNestedTopLinearLayout by lazy { QMUIContinuousNestedTopLinearLayout(context) }
+    private val mRecyclerView: RecyclerView by lazy { QMUIContinuousNestedBottomRecyclerView(context!!) }
 
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mCommunityAdapter: CommunityAdapter
-
-    private lateinit var mHeadRecyclerView: RecyclerView
-    private lateinit var mSortAdapter: SortAdapter
+    private val mCommunityAdapter: CommunityAdapter by lazy { CommunityAdapter() }
+    private val mSortAdapter: SortAdapter by lazy { SortAdapter() }
 
     private val mHeadDatas = ArrayList<String>()
     private val mDatas = ArrayList<CommunityContentEntity>()
@@ -49,28 +45,22 @@ class CommunityFragment : BaseFragment(){
     }
 
     override fun initView(view : View) {
-        mHeadRecyclerView = view.find(R.id.recyclerView_header)
-        mPullToRefresh = view.find(R.id.pull_to_refresh)
-        mCoordinatorScroll = view.find(R.id.coordinator)
 
         val matchParent = ViewGroup.LayoutParams.MATCH_PARENT
 
-        mTopLinearLayout = QMUIContinuousNestedTopLinearLayout(context)
         mTopLinearLayout.setBackgroundColor(Color.LTGRAY)
         mTopLinearLayout.orientation = LinearLayout.VERTICAL
 
-        mSortAdapter = SortAdapter()
-//        mHeadRecyclerView = QMUIContinuousNestedTopRecyclerView(context!!)
         val layoutManager = object : LinearLayoutManager(context) {
             override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
                 return RecyclerView.LayoutParams(matchParent,matchParent)
             }
         }
         layoutManager.orientation = RecyclerView.HORIZONTAL
-        mHeadRecyclerView.layoutManager = layoutManager
+        mBinding.recyclerViewHeader.layoutManager = layoutManager
         val topLp = CoordinatorLayout.LayoutParams(matchParent, ViewGroup.LayoutParams.WRAP_CONTENT)
         topLp.behavior = QMUIContinuousNestedTopAreaBehavior(context)
-        mHeadRecyclerView.adapter = mSortAdapter
+        mBinding.recyclerViewHeader.adapter = mSortAdapter
 
         val textView = TextView(activity)
         textView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -81,13 +71,9 @@ class CommunityFragment : BaseFragment(){
         textView.gravity = Gravity.START
         val padValue = resources.getDimension(R.dimen.space_10).toInt()
         textView.setPadding(padValue,(padValue/2),padValue,(padValue/2))
-
-//        mTopLinearLayout.addView(mHeadRecyclerView)
         mTopLinearLayout.addView(textView)
-        mCoordinatorScroll.setTopAreaView(mTopLinearLayout, topLp)
+        mBinding.coordinator.setTopAreaView(mTopLinearLayout, topLp)
 
-        mCommunityAdapter = CommunityAdapter()
-        mRecyclerView = QMUIContinuousNestedBottomRecyclerView(context!!)
         mRecyclerView.layoutManager = object : LinearLayoutManager(context) {
             override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
                 return RecyclerView.LayoutParams(matchParent,matchParent)
@@ -96,7 +82,7 @@ class CommunityFragment : BaseFragment(){
         val recyclerViewLp = CoordinatorLayout.LayoutParams(matchParent, matchParent)
         recyclerViewLp.behavior = QMUIContinuousNestedBottomAreaBehavior()
         mRecyclerView.adapter = mCommunityAdapter
-        mCoordinatorScroll.setBottomAreaView(mRecyclerView, recyclerViewLp)
+        mBinding.coordinator.setBottomAreaView(mRecyclerView, recyclerViewLp)
 
     }
 
@@ -108,7 +94,7 @@ class CommunityFragment : BaseFragment(){
     }
 
     override fun initListener() {
-        mPullToRefresh.setOnPullListener(object : QMUIPullRefreshLayout.OnPullListener {
+        mBinding.pullToRefresh.setOnPullListener(object : QMUIPullRefreshLayout.OnPullListener {
             override fun onMoveTarget(offset: Int) {
 
             }
@@ -119,7 +105,7 @@ class CommunityFragment : BaseFragment(){
 
             override fun onRefresh() {
                 //TODO data load
-                mPullToRefresh.postDelayed( { mPullToRefresh.finishRefresh() }, 3000)
+                mBinding.pullToRefresh.postDelayed( { mBinding.pullToRefresh.finishRefresh() }, 3000)
             }
         })
     }

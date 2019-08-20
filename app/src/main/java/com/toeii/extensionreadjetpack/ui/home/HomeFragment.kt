@@ -1,11 +1,9 @@
-package com.toeii.extensionreadjetpack.fragment.home
+package com.toeii.extensionreadjetpack.ui.home
 
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.google.android.material.navigation.NavigationView
 import com.qmuiteam.qmui.arch.QMUIFragment
@@ -13,56 +11,41 @@ import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUITabSegment
-import com.qmuiteam.qmui.widget.QMUITopBar
-import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
-import com.toeii.extensionreadjetpack.fragment.nav.BrowseRecordFragment
+import com.toeii.extensionreadjetpack.databinding.FragmentHomeBinding
+import com.toeii.extensionreadjetpack.ui.home.daily.DailyFragment
+import com.toeii.extensionreadjetpack.ui.home.recommend.RecommendFragment
+import com.toeii.extensionreadjetpack.ui.nav.BrowseRecordFragment
 import org.jetbrains.anko.backgroundColorResource
-import org.jetbrains.anko.find
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
 import java.util.HashMap
 
 
-class HomeFragment : BaseFragment(), NavigationView.OnNavigationItemSelectedListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), NavigationView.OnNavigationItemSelectedListener {
 
-
-    private lateinit var mTopBar: QMUITopBar
-    private lateinit var mTabSegment: QMUITabSegment
-    private lateinit var mViewPager: QMUIViewPager
-    private lateinit var mBtnMenu: ImageView
-    private lateinit var mOpenDrawerLayout: ImageView
-    private lateinit var mDrawerLayout: DrawerLayout
-    private lateinit var mNavigationView: NavigationView
-
-    private lateinit var mPagerAdapter: PagerAdapter
-    private lateinit var mPages: HashMap<Pager, QMUIFragment>
+    private val mPagerAdapter: PagerAdapter by lazy { getPagerAdapter() }
+    private val mPages = HashMap<Pager, QMUIFragment>()
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
     }
 
     override fun initView(view: View) {
-        mTopBar = view.find(R.id.home_topbar)
-        mTabSegment = view.find(R.id.home_tabs)
-        mViewPager = view.find(R.id.home_pager)
-        mBtnMenu = view.find(R.id.home_menu)
-        mOpenDrawerLayout = view.find(R.id.home_menu)
-        mDrawerLayout = view.find(R.id.home_drawerlayout)
-        mNavigationView = view.find(R.id.home_navView)
 
-        mTopBar.setBackgroundColor(ContextCompat.getColor(context!!, R.color.app_color))
+
+        mBinding.homeTopbar.setBackgroundColor(ContextCompat.getColor(context!!, R.color.app_color))
 
         // initTab
         val space = QMUIDisplayHelper.dp2px(context, 10)
-        mTabSegment.backgroundColorResource = R.color.app_color
-        mTabSegment.setTabTextSize(resources.getDimensionPixelSize(R.dimen.text_size_16))
-        mTabSegment.setDefaultNormalColor(QMUIResHelper.getAttrColor(activity, R.attr.qmui_config_color_gray_9))
-        mTabSegment.setDefaultSelectedColor(resources.getColor(R.color.qmui_config_color_white))
-        mTabSegment.setHasIndicator(true)
-        mTabSegment.setItemSpaceInScrollMode(space)
-        mTabSegment.setPadding(space,0,space,0)
+        mBinding.homeTabs.backgroundColorResource = R.color.app_color
+        mBinding.homeTabs.setTabTextSize(resources.getDimensionPixelSize(R.dimen.text_size_16))
+        mBinding.homeTabs.setDefaultNormalColor(QMUIResHelper.getAttrColor(activity, R.attr.qmui_config_color_gray_9))
+        mBinding.homeTabs.setDefaultSelectedColor(resources.getColor(R.color.qmui_config_color_white))
+        mBinding.homeTabs.setHasIndicator(true)
+        mBinding.homeTabs.setItemSpaceInScrollMode(space)
+        mBinding.homeTabs.setPadding(space,0,space,0)
         for(position in 1..2){
             val tab = when (position) {
                 1 -> QMUITabSegment.Tab("      推荐      ")
@@ -70,17 +53,15 @@ class HomeFragment : BaseFragment(), NavigationView.OnNavigationItemSelectedList
                 else -> null
             }
             if(null != tab){
-                mTabSegment.addTab(tab)
+                mBinding.homeTabs.addTab(tab)
             }
         }
 
         // initPager
-        mPages = HashMap<Pager, QMUIFragment>()
         mPages[Pager.Recommend] = RecommendFragment()
         mPages[Pager.Daily] = DailyFragment()
-        mPagerAdapter = getPagerAdapter()
-        mViewPager.adapter = mPagerAdapter
-        mTabSegment.setupWithViewPager(mViewPager, false)
+        mBinding.homePager.adapter = mPagerAdapter
+        mBinding.homeTabs.setupWithViewPager(mBinding.homePager, false)
 
     }
 
@@ -89,13 +70,13 @@ class HomeFragment : BaseFragment(), NavigationView.OnNavigationItemSelectedList
 
     override fun initListener() {
 
-        mNavigationView.setNavigationItemSelectedListener(this)
+        mBinding.homeNavView.setNavigationItemSelectedListener(this)
 
-        mBtnMenu.onClick {
-            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                mDrawerLayout.closeDrawer(GravityCompat.START)
+        mBinding.homeMenu.onClick {
+            if (mBinding.homeDrawerlayout.isDrawerOpen(GravityCompat.START)) {
+                mBinding.homeDrawerlayout.closeDrawer(GravityCompat.START)
             }else{
-                mDrawerLayout.openDrawer(GravityCompat.START)
+                mBinding.homeDrawerlayout.openDrawer(GravityCompat.START)
             }
         }
 

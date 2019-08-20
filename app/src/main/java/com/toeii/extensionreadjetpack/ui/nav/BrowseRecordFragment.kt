@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.fragment.nav
+package com.toeii.extensionreadjetpack.ui.nav
 
 import android.view.View
 import android.view.ViewGroup
@@ -9,35 +9,28 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomAreaBehavior
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomRecyclerView
-import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
-import com.qmuiteam.qmui.widget.QMUITopBar
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
+import com.toeii.extensionreadjetpack.databinding.FragmentBrowseRecordBinding
 import com.toeii.extensionreadjetpack.entity.BrowseRecordEntity
-import org.jetbrains.anko.find
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.util.ArrayList
 
-class BrowseRecordFragment : BaseFragment(){
+class BrowseRecordFragment : BaseFragment<FragmentBrowseRecordBinding>(){
 
-    private lateinit var mTopBar: QMUITopBar
-    private lateinit var mPullToRefresh: QMUIPullRefreshLayout
-    private lateinit var mCoordinatorScroll: QMUIContinuousNestedScrollLayout
-
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mBrowseRecordAdapter: BrowseRecordAdapter
+    private val mBrowseRecordAdapter: BrowseRecordAdapter by lazy { BrowseRecordAdapter() }
+    private val mRecyclerView: RecyclerView by lazy { QMUIContinuousNestedBottomRecyclerView(context!!) }
 
     private val mDatas = ArrayList<BrowseRecordEntity>()
 
     init {
 
         for(index in 1..20){
-            mDatas.add(BrowseRecordEntity())
+            mDatas.add(BrowseRecordEntity(0,"","","","",""))
         }
 
     }
-
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_browse_record
@@ -45,14 +38,8 @@ class BrowseRecordFragment : BaseFragment(){
 
     override fun initView(view: View) {
 
-        mTopBar = view.find(R.id.topbar)
-        mPullToRefresh = view.find(R.id.pull_to_refresh)
-        mCoordinatorScroll = view.find(R.id.coordinator)
+        mBinding.topbar.setTitle("浏览记录")
 
-        mTopBar.setTitle("浏览记录")
-
-        mBrowseRecordAdapter = BrowseRecordAdapter()
-        mRecyclerView = QMUIContinuousNestedBottomRecyclerView(context!!)
         mRecyclerView.layoutManager = object : LinearLayoutManager(context) {
             override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
                 return RecyclerView.LayoutParams(
@@ -64,7 +51,7 @@ class BrowseRecordFragment : BaseFragment(){
         val recyclerViewLp = CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         recyclerViewLp.behavior = QMUIContinuousNestedBottomAreaBehavior()
         mRecyclerView.adapter = mBrowseRecordAdapter
-        mCoordinatorScroll.setBottomAreaView(mRecyclerView, recyclerViewLp)
+        mBinding.coordinator.setBottomAreaView(mRecyclerView, recyclerViewLp)
 
     }
 
@@ -77,9 +64,24 @@ class BrowseRecordFragment : BaseFragment(){
 
     override fun initListener() {
 
-        mTopBar.addLeftBackImageButton().onClick {
+        mBinding.topbar.addLeftBackImageButton().onClick {
             popBackStack()
         }
+
+        mBinding.pullToRefresh.setOnPullListener(object : QMUIPullRefreshLayout.OnPullListener {
+            override fun onMoveTarget(offset: Int) {
+
+            }
+
+            override fun onMoveRefreshView(offset: Int) {
+
+            }
+
+            override fun onRefresh() {
+                //TODO data load
+                mBinding.pullToRefresh.postDelayed( { mBinding.pullToRefresh.finishRefresh() }, 3000)
+            }
+        })
 
     }
 
