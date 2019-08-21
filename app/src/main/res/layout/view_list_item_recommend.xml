@@ -1,86 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:orientation="vertical"
+<layout>
+
+    <data>
+
+        <variable name="item"
+                  type="com.toeii.extensionreadjetpack.entity.ViceResult"/>
+
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                       xmlns:tools="http://schemas.android.com/tools"
+                                       android:orientation="vertical"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="wrap_content"
+                                       app:cardElevation="@dimen/space_4"
+                                       app:cardCornerRadius="@dimen/space_2"
+                                       android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                                       tools:targetApi="lollipop">
+
+
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="@dimen/space_4"
-                app:cardCornerRadius="@dimen/space_2"
-                android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                tools:targetApi="lollipop">
+                android:paddingTop="@dimen/space_10"
+                android:paddingBottom="@dimen/space_20"
+        >
 
 
-   <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:paddingTop="@dimen/space_10"
-           android:paddingBottom="@dimen/space_20"
-   >
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:id="@+id/theme_icon"
+                    android:layout_width="@dimen/space_48"
+                    android:layout_height="wrap_content"
+                    app:qmui_border_color="@android:color/white"
+                    app:qmui_is_circle="true"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginLeft="@dimen/space_10"
+                    app:imageUrl="@{item.site.icon}"
+            />
 
 
-       <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-               android:id="@+id/theme_icon"
-               android:layout_width="@dimen/space_48"
-               android:layout_height="wrap_content"
-               app:qmui_border_color="@android:color/white"
-               app:qmui_is_circle="true"
-               android:layout_marginTop="@dimen/space_8"
-               android:layout_marginLeft="@dimen/space_10"
+            <TextView
+                    android:id="@+id/theme_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size_20"
+                    android:singleLine="true"
+                    android:layout_toRightOf="@id/theme_icon"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_6"
+                    android:text="@{item.site.title}"
+            />
 
-       />
+            <TextView
+                    android:id="@+id/theme_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/qmui_config_color_gray_3"
+                    android:textSize="@dimen/text_size_15"
+                    android:singleLine="true"
+                    android:layout_below="@id/theme_title"
+                    android:layout_toRightOf="@id/theme_icon"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:text="@{item.site.desc}"
+            />
 
+            <TextView
+                    android:id="@+id/group_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size_18"
+                    android:padding="@dimen/space_10"
+                    android:layout_below="@id/theme_icon"
+                    android:text="@{item.title}"
+            />
 
-       <TextView
-               android:id="@+id/theme_title"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@android:color/black"
-               android:textSize="@dimen/text_size_20"
-               android:singleLine="true"
-               android:layout_toRightOf="@id/theme_icon"
-               android:layout_marginLeft="@dimen/space_8"
-               android:layout_marginTop="@dimen/space_6"
-
-       />
-
-       <TextView
-               android:id="@+id/theme_subtitle"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@color/qmui_config_color_gray_3"
-               android:textSize="@dimen/text_size_15"
-               android:singleLine="true"
-               android:layout_below="@id/theme_title"
-               android:layout_toRightOf="@id/theme_icon"
-               android:layout_marginLeft="@dimen/space_8"
-       />
-
-       <TextView
-               android:id="@+id/group_title_text"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textColor="@android:color/black"
-               android:textSize="@dimen/text_size_18"
-               android:padding="@dimen/space_10"
-               android:layout_below="@id/theme_icon"
-       />
-
-       <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-               android:id="@+id/group_cover"
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/space_200"
-               android:layout_marginTop="@dimen/space_10"
-               app:qmui_border_color="@android:color/white"
-               app:qmui_border_width="1px"
-               app:qmui_corner_radius="@dimen/space_6"
-               android:layout_marginLeft="@dimen/space_10"
-               android:layout_marginRight="@dimen/space_10"
-               android:layout_below="@id/group_title_text"
-       />
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:id="@+id/group_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_200"
+                    android:layout_marginTop="@dimen/space_10"
+                    app:qmui_border_color="@android:color/white"
+                    app:qmui_border_width="1px"
+                    app:qmui_corner_radius="@dimen/space_6"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_below="@id/group_title_text"
+                    app:imageUrl="@{item.cover}"
+            />
 
 
-   </RelativeLayout>
+        </RelativeLayout>
 
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+</layout>

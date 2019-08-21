@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
->
+<layout>
 
-    <TextView
-            android:id="@+id/item_title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="精彩推荐"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_22"
-            android:singleLine="true"
-            android:textStyle="bold"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
-    />
+    <data>
 
-    <com.stx.xhb.androidx.XBanner
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/item_pager"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_240"
-            app:AutoPlayTime="3000"
-            app:pointsVisibility="false"
-            app:isClipChildrenMode="true"
-            app:clipChildrenLeftRightMargin="@dimen/space_14"
-            app:clipChildrenTopBottomMargin="0dp"
-            app:pageChangeDuration="1000"
-            android:layout_marginTop="@dimen/space_10"
-    />
+    </data>
 
 
-</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+    >
+
+        <TextView
+                android:id="@+id/item_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="精彩推荐"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_22"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+        />
+
+        <com.stx.xhb.androidx.XBanner
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/item_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_240"
+                app:AutoPlayTime="3000"
+                app:pointsVisibility="false"
+                app:isClipChildrenMode="true"
+                app:clipChildrenLeftRightMargin="@dimen/space_14"
+                app:clipChildrenTopBottomMargin="0dp"
+                app:pageChangeDuration="1000"
+                android:layout_marginTop="@dimen/space_10"
+        />
+
+
+    </LinearLayout>
+
+
+</layout>

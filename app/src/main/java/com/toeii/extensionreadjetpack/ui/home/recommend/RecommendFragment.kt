@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
@@ -18,25 +19,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qmuiteam.qmui.nestedScroll.*
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
 import com.stx.xhb.androidx.XBanner
-import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.base.BaseFragment
 import com.toeii.extensionreadjetpack.databinding.FragmentRecommendBinding
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
-import org.jetbrains.anko.find
 import com.toeii.extensionreadjetpack.R
-import com.toeii.extensionreadjetpack.config.ERAppConfig
+import com.toeii.extensionreadjetpack.base.BaseViewHolder
+import com.toeii.extensionreadjetpack.databinding.ViewListHeaderRecommendBinding
+import com.toeii.extensionreadjetpack.databinding.ViewListItemRecommendBinding
+import com.toeii.extensionreadjetpack.databinding.ViewVpItemRecommendBinding
 import com.toeii.extensionreadjetpack.entity.ViceResult
 import com.toeii.extensionreadjetpack.util.SpacesItemDecoration
-import kotlinx.android.synthetic.main.view_list_item_recommend.view.*
 
 class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
-
-    private lateinit var mCoordinatorScrollHeaderView: View
-    private lateinit var mHeadItemTitleText: TextView
-    private lateinit var mHeadViewPager: XBanner
 
     private val mCoordinatorScrollTopLayout: QMUIContinuousNestedTopLinearLayout by lazy { QMUIContinuousNestedTopLinearLayout(context) }
     private val mRecyclerView: RecyclerView by lazy { QMUIContinuousNestedBottomRecyclerView(context!!) }
@@ -44,19 +40,18 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
     private val mHeadViewAdapter: XBanner.XBannerAdapter by lazy { getHeadPagerAdapter() }
     private val mHandler: Handler by lazy { Handler() }
 
+    private lateinit var mHeadBinding : ViewListHeaderRecommendBinding
+    private lateinit var mVpBinding : ViewVpItemRecommendBinding
+
     private fun getHeadPagerAdapter(): XBanner.XBannerAdapter {
         return XBanner.XBannerAdapter { _, model, view, _ ->
-
-            val themeCover = view.find<QMUIRadiusImageView>(R.id.theme_cover)
-            val themeHeadIcon = view.find<QMUIRadiusImageView>(R.id.theme_icon)
-            val themeTitle = view.find<TextView>(R.id.theme_title)
-            val themeSubTitle = view.find<TextView>(R.id.theme_subtitle)
-
+            mVpBinding = if(null == DataBindingUtil.getBinding<ViewVpItemRecommendBinding>(view)){
+                ViewVpItemRecommendBinding.bind(view)
+            }else{
+                DataBindingUtil.getBinding<ViewVpItemRecommendBinding>(view)!!
+            }
             val bannerItem = model as RecommendBannerItem
-            Glide.with(context!!) .load(bannerItem.data.cover.detail).into(themeCover)
-            Glide.with(context!!) .load(bannerItem.data.author.icon).into(themeHeadIcon)
-            themeTitle.text = bannerItem.data.author.name
-            themeSubTitle.text = bannerItem.data.author.description
+            mVpBinding.bannerItem = bannerItem
         }
     }
 
@@ -70,13 +65,10 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
 
     override fun initView(view : View) {
 
-        mCoordinatorScrollHeaderView = LayoutInflater.from(context).inflate(R.layout.view_list_header_recommend,null)
-        mHeadItemTitleText = mCoordinatorScrollHeaderView.find(R.id.item_title_text)
-        mHeadViewPager = mCoordinatorScrollHeaderView.find(R.id.item_pager)
-
+        val headView = LayoutInflater.from(activity).inflate(R.layout.view_list_header_recommend,null)
+        mHeadBinding = ViewListHeaderRecommendBinding.bind(headView)
         mCoordinatorScrollTopLayout.orientation = LinearLayout.VERTICAL
-        mCoordinatorScrollTopLayout.addView(mCoordinatorScrollHeaderView)
-
+        mCoordinatorScrollTopLayout.addView(headView)
         val matchParent = ViewGroup.LayoutParams.MATCH_PARENT
         val topLp = CoordinatorLayout.LayoutParams(matchParent, ViewGroup.LayoutParams.WRAP_CONTENT)
         topLp.behavior = QMUIContinuousNestedTopAreaBehavior(context)
@@ -104,8 +96,8 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
             val newIt = it.filter { item ->
                 item.data.cover != null
             }
-            mHeadViewPager.setBannerData(com.toeii.extensionreadjetpack.R.layout.view_vp_item_recommend,newIt)
-            mHeadViewPager.loadImage(mHeadViewAdapter)
+            mHeadBinding.itemPager.setBannerData(R.layout.view_vp_item_recommend,newIt)
+            mHeadBinding.itemPager.loadImage(mHeadViewAdapter)
         })
 
         fetchRecommendResult()
@@ -138,7 +130,7 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
 
 }
 
-internal class RecommendAdapter(private var mContext: Context): PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(diffCallback) {
+internal class RecommendAdapter(private var mContext: Context): PagedListAdapter<ViceResult, BaseViewHolder<ViewListItemRecommendBinding>>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<ViceResult>() {
@@ -151,25 +143,20 @@ internal class RecommendAdapter(private var mContext: Context): PagedListAdapter
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(mContext).inflate(R.layout.view_list_item_recommend,null)
-        return RecommendHolder(view)
-    }
-
-    override fun onBindViewHolder(helper: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<ViewListItemRecommendBinding>, position: Int) {
         val item= currentList?.get(position)
         if(item?.site != null){
-            helper.itemView.group_title_text.text = item.title
-            Glide.with(mContext).load(item.cover).error(R.mipmap.icon_error_cover).into(helper.itemView.group_cover)
-            Glide.with(mContext).load(item.site.icon).error(R.mipmap.icon_error_cover).into(helper.itemView.theme_icon)
-            helper.itemView.theme_title.text = item.site.title
-            helper.itemView.theme_subtitle.text = item.site.desc
+            holder.binding.item = item
         }
     }
 
-    class RecommendHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewListItemRecommendBinding> {
+        val view = LayoutInflater.from(mContext).inflate(R.layout.view_list_item_recommend,parent,false)
+        val bindView = ViewListItemRecommendBinding.bind(view)
+        return RecommendHolder(bindView)
+    }
+
+    class RecommendHolder(itemView: ViewListItemRecommendBinding):BaseViewHolder<ViewListItemRecommendBinding>(itemView)
 
 }
-
-
 
