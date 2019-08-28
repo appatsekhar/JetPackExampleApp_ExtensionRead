@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
@@ -55,7 +57,7 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
         }
     }
 
-    private val mViewModel: RecommendViewModel by lazy {
+    private val mViewModel: RecommendViewModel by lazy(LazyThreadSafetyMode.NONE)  {
         ViewModelProviders.of(this,RecommendModelFactory(RecommendRepository()))[RecommendViewModel::class.java]
     }
 
@@ -126,6 +128,7 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
             mRecommendAdapter.submitList(it)
             mHandler.postDelayed({ mBinding.pullToRefresh.finishRefresh() }, 500)
         })
+
     }
 
 }

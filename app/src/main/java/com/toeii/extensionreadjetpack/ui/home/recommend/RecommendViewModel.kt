@@ -3,11 +3,10 @@ package com.toeii.extensionreadjetpack.ui.home.recommend
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.toeii.extensionreadjetpack.ERApplication
+import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
 import com.toeii.extensionreadjetpack.entity.ViceResult
 import com.toeii.extensionreadjetpack.util.safeLaunch
-import org.jetbrains.anko.info
 
 class RecommendViewModel(private val repository: RecommendRepository) : ViewModel() {
 
@@ -18,10 +17,9 @@ class RecommendViewModel(private val repository: RecommendRepository) : ViewMode
         result = LivePagedListBuilder(
             RecommendDataSourceFactory(repository),
             PagedList.Config.Builder()
-                .setPageSize(20)
-                .setPrefetchDistance(10)
-                .setInitialLoadSizeHint(20)
-                .setEnablePlaceholders(false)
+                .setPageSize(ERAppConfig.PAGE_SIZE)
+                .setEnablePlaceholders(ERAppConfig.ENABLE_PLACEHOLDERS)
+                .setInitialLoadSizeHint(ERAppConfig.PAGE_SIZE_HINT)
                 .build()
         ).build()
     }
@@ -40,6 +38,7 @@ class RecommendModelFactory(private val repository: RecommendRepository) : ViewM
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return RecommendViewModel(repository) as T
     }
+
 }
 
 
