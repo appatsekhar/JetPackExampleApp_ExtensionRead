@@ -7,19 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.qmuiteam.qmui.nestedScroll.*
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
 import com.stx.xhb.androidx.XBanner
@@ -32,7 +28,7 @@ import com.toeii.extensionreadjetpack.databinding.ViewListHeaderRecommendBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemRecommendBinding
 import com.toeii.extensionreadjetpack.databinding.ViewVpItemRecommendBinding
 import com.toeii.extensionreadjetpack.entity.ViceResult
-import com.toeii.extensionreadjetpack.util.SpacesItemDecoration
+import com.toeii.extensionreadjetpack.common.SpacesItemDecoration
 
 class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
 
@@ -67,6 +63,8 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
 
     override fun initView(view : View) {
 
+        //TODO paging失效和NestedScrollLayout有关系
+
         val headView = LayoutInflater.from(activity).inflate(R.layout.view_list_header_recommend,null)
         mHeadBinding = ViewListHeaderRecommendBinding.bind(headView)
         mCoordinatorScrollTopLayout.orientation = LinearLayout.VERTICAL
@@ -87,6 +85,7 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
         val recyclerViewLp = CoordinatorLayout.LayoutParams(matchParent, matchParent)
         recyclerViewLp.behavior = QMUIContinuousNestedBottomAreaBehavior()
         mRecyclerView.adapter = mRecommendAdapter
+        mRecyclerView.isNestedScrollingEnabled = true
         mRecyclerView.addItemDecoration(SpacesItemDecoration(10))
         mBinding.coordinator.setBottomAreaView(mRecyclerView, recyclerViewLp)
 

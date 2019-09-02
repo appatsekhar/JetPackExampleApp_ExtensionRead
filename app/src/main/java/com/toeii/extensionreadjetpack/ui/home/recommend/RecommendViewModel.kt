@@ -6,7 +6,7 @@ import androidx.paging.PagedList
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
 import com.toeii.extensionreadjetpack.entity.ViceResult
-import com.toeii.extensionreadjetpack.util.safeLaunch
+import com.toeii.extensionreadjetpack.common.safeLaunch
 
 class RecommendViewModel(private val repository: RecommendRepository) : ViewModel() {
 

@@ -5,7 +5,7 @@ import androidx.paging.PageKeyedDataSource
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
 import com.toeii.extensionreadjetpack.entity.ViceResult
 import com.toeii.extensionreadjetpack.network.RetrofitManager
-import com.toeii.extensionreadjetpack.util.safeLaunch
+import com.toeii.extensionreadjetpack.common.safeLaunch
 import kotlinx.coroutines.*
 
 class RecommendRepository {

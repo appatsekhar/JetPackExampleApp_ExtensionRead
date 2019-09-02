@@ -32,7 +32,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     def lifecycle_version = '2.2.0-alpha02'
-    def paging_version = '2.1.0'
+    def paging_version = '2.1.0-alpha01'
     def room_version = '2.1.0'
     def work_version = '2.1.0'
     def navigation_version = '2.2.0-alpha01'
