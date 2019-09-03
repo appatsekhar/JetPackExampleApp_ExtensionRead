@@ -1,12 +1,11 @@
-package com.toeii.extensionreadjetpack.base
+package com.toeii.extensionreadjetpack.network
 
-import android.util.Log
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class BaseUrlInterceptor : Interceptor {
+class RequestUrlInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
 

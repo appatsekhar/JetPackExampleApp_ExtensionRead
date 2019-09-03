@@ -18,7 +18,8 @@ data class ViceResult(
     val title: String,
     val uid: String,
     val updated_at: String,
-    val url: String
+    val url: String,
+    var bannerData: List<RecommendBannerItem>
 )
 
 data class ViceSite(

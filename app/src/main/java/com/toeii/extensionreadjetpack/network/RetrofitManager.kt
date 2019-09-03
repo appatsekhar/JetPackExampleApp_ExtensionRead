@@ -1,7 +1,6 @@
 package com.toeii.extensionreadjetpack.network
 
 import com.toeii.extensionreadjetpack.ERApplication
-import com.toeii.extensionreadjetpack.base.BaseUrlInterceptor
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,7 +31,7 @@ object RetrofitManager {
 
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val urlInterceptor = BaseUrlInterceptor()
+        val urlInterceptor = RequestUrlInterceptor()
 
         return OkHttpClient.Builder()
             .connectTimeout(5000L, TimeUnit.MILLISECONDS)

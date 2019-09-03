@@ -31,7 +31,7 @@ class RecommendRepository {
 class RecommendDataSource(private val repository: RecommendRepository) :PageKeyedDataSource<Int, ViceResult>(), CoroutineScope by MainScope(){
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ViceResult>) {
-        println("loadInitial=============================1")
+        println("loadInitial=============================")
         safeLaunch {
             val data = repository.homeRecommendResult(1)
             data?.let {
@@ -51,13 +51,7 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, ViceResult>) {
-        println("loadBefore=============================")
-        safeLaunch {
-            val data = repository.homeRecommendResult(params.key)
-            data?.let {
-                callback.onResult(it, params.key - 1)
-            }
-        }
+
     }
 
     override fun invalidate() {
