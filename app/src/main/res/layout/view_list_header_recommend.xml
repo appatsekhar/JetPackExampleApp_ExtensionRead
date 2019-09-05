@@ -30,13 +30,13 @@
                 android:id="@+id/item_pager"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_240"
+                android:layout_marginTop="@dimen/space_10"
                 app:AutoPlayTime="3000"
                 app:pointsVisibility="false"
                 app:isClipChildrenMode="true"
                 app:clipChildrenLeftRightMargin="@dimen/space_14"
                 app:clipChildrenTopBottomMargin="0dp"
                 app:pageChangeDuration="1000"
-                android:layout_marginTop="@dimen/space_10"
         />
 
 

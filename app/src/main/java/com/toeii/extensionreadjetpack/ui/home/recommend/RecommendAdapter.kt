@@ -1,8 +1,10 @@
 package com.toeii.extensionreadjetpack.ui.home.recommend
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,12 +12,15 @@ import com.stx.xhb.androidx.XBanner
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BasePagedListAdapterObserver
 import com.toeii.extensionreadjetpack.databinding.ViewListHeaderRecommendBinding
+import com.toeii.extensionreadjetpack.databinding.ViewListItemFooterBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemRecommendBinding
 import com.toeii.extensionreadjetpack.databinding.ViewVpItemRecommendBinding
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
 import com.toeii.extensionreadjetpack.entity.ViceResult
 
 class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(diffCallback) {
+
+    internal var isLoadMore = true
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -35,8 +40,8 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HeaderViewHolder -> holder.bindsHeader(currentList?.get(0)) //TODO null data
-            is FooterViewHolder -> holder.bindsFooter()
+            is HeaderViewHolder -> holder.bindsHeader(currentList?.get(0))
+            is FooterViewHolder -> holder.bindsFooter(isLoadMore)
             is RecommendViewHolder -> holder.bindTo(getDataItem(position))
         }
     }
@@ -55,11 +60,15 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<ViceResult>() {
-            override fun areItemsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean =
-                oldItem._id == newItem._id
+            override fun areItemsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean {
+                return oldItem._id == newItem._id
+            }
 
-            override fun areContentsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean =
-                oldItem == newItem
+
+            override fun areContentsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean {
+                return oldItem == newItem
+            }
+
         }
 
         private const val ITEM_TYPE_HEADER = 99
@@ -75,11 +84,7 @@ class RecommendViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
     fun bindTo(viceResult: ViceResult?) {
         this.viceResult = viceResult
-        mBinding =  if(null == DataBindingUtil.getBinding<ViewListItemRecommendBinding>(itemView)){
-            ViewListItemRecommendBinding.bind(itemView)
-        }else{
-            DataBindingUtil.getBinding<ViewListItemRecommendBinding>(itemView)!!
-        }
+        mBinding = initViewBindingImpl(itemView) as ViewListItemRecommendBinding
         mBinding.item = viceResult
     }
 
@@ -88,31 +93,23 @@ class RecommendViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 internal class HeaderViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.view_list_header_recommend, parent, false)) {
 
-    private lateinit var mHeadBinding : ViewListHeaderRecommendBinding
+    private lateinit var mHeaderBinding : ViewListHeaderRecommendBinding
     private lateinit var mVpBinding : ViewVpItemRecommendBinding
     private val mHeadViewAdapter: XBanner.XBannerAdapter by lazy { getHeadPagerAdapter() }
 
     fun bindsHeader(viceResult: ViceResult?) {
-        mHeadBinding = if(null == DataBindingUtil.getBinding<ViewListHeaderRecommendBinding>(itemView)){
-            ViewListHeaderRecommendBinding.bind(itemView)
-        }else{
-            DataBindingUtil.getBinding<ViewListHeaderRecommendBinding>(itemView)!!
-        }
+        mHeaderBinding = initViewBindingImpl(itemView) as ViewListHeaderRecommendBinding
         if (viceResult != null) {
-            mHeadBinding.itemPager.setBannerData(R.layout.view_vp_item_recommend,viceResult.bannerData)
-            mHeadBinding.itemPager.loadImage(mHeadViewAdapter)
+            mHeaderBinding.itemPager.setBannerData(R.layout.view_vp_item_recommend,viceResult.bannerData)
+            mHeaderBinding.itemPager.loadImage(mHeadViewAdapter)
+            mHeaderBinding.itemTitleText.text = "精彩推荐"
         }
     }
 
     private fun getHeadPagerAdapter(): XBanner.XBannerAdapter {
         return XBanner.XBannerAdapter { _, model, view, _ ->
-            mVpBinding = if(null == DataBindingUtil.getBinding<ViewVpItemRecommendBinding>(view)){
-                ViewVpItemRecommendBinding.bind(view)
-            }else{
-                DataBindingUtil.getBinding<ViewVpItemRecommendBinding>(view)!!
-            }
-            val bannerItem = model as RecommendBannerItem
-            mVpBinding.bannerItem = bannerItem
+            mVpBinding = initViewBindingImpl(view) as ViewVpItemRecommendBinding
+            mVpBinding.bannerItem = model as RecommendBannerItem
         }
     }
 
@@ -121,8 +118,23 @@ internal class HeaderViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 internal class FooterViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.view_list_item_footer, parent, false)) {
 
-    fun bindsFooter() {
+    private lateinit var mFooterBinding : ViewListItemFooterBinding
 
+    fun bindsFooter(isLoadMore: Boolean) {
+        mFooterBinding = initViewBindingImpl(itemView) as ViewListItemFooterBinding
+        if(isLoadMore){
+            mFooterBinding.tvBanner.text = "加载中..."
+        }else{
+            mFooterBinding.tvBanner.text = "没有更多了"
+        }
     }
 
+}
+
+private fun initViewBindingImpl(itemView: View): ViewDataBinding? {
+    return if (null == DataBindingUtil.getBinding(itemView)) {
+        DataBindingUtil.bind(itemView)
+    } else {
+        DataBindingUtil.getBinding(itemView)
+    }
 }

@@ -16,7 +16,7 @@
 			android:layout_height="wrap_content"
 			android:gravity="center"
 			android:padding="16dp"
-			android:text="没有更多了"
+			android:text=""
 			android:textColor="#CCC"
 			android:layout_centerInParent="true"
 			/>

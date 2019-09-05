@@ -2,16 +2,26 @@ package com.toeii.extensionreadjetpack.ui.home.recommend
 
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
+import com.toeii.extensionreadjetpack.common.CoroutineBus
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
 import com.toeii.extensionreadjetpack.entity.ViceResult
 import com.toeii.extensionreadjetpack.network.RetrofitManager
 import com.toeii.extensionreadjetpack.common.safeLaunch
+import com.toeii.extensionreadjetpack.config.ERAppConfig
+import com.toeii.extensionreadjetpack.entity.EventMessage
 import kotlinx.coroutines.*
 
 class RecommendRepository {
 
     suspend fun homeRecommendResult(page: Int): List<ViceResult>? = withContext(Dispatchers.IO) {
         val result = RetrofitManager.apiService.getHomeRecommendList(page.toString()).results
+        val bannerData =  homeRecommendBannerResult()
+        if(bannerData!!.isNotEmpty()){
+            val filterData = bannerData.filter {
+                it?.data?.author != null
+            }
+            result[0].bannerData = filterData
+        }
         result
     }
 
@@ -31,22 +41,28 @@ class RecommendRepository {
 class RecommendDataSource(private val repository: RecommendRepository) :PageKeyedDataSource<Int, ViceResult>(), CoroutineScope by MainScope(){
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ViceResult>) {
-        println("loadInitial=============================")
         safeLaunch {
             val data = repository.homeRecommendResult(1)
             data?.let {
                 callback.onResult(it, 1,2)
+                CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_INIT,null))
             }
         }
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ViceResult>) {
-        println("loadAfter=============================")
         safeLaunch {
             val data = repository.homeRecommendResult(params.key)
-            data?.let {
-                callback.onResult(it, params.key + 1)
+            // TODO
+            if(!data.isNullOrEmpty() && data.isNotEmpty()){
+                data.let {
+                    callback.onResult(it, params.key + 1)
+                    CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_LOAD_START,null))
+                }
+            }else{
+                CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_LOAD_END,null))
             }
+
         }
     }
 

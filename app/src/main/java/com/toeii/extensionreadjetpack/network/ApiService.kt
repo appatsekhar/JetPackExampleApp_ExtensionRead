@@ -5,11 +5,11 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    //首页闲读
+    // 首页推荐
     @GET("/api/xiandu/data/id/vice/count/20/page/{page}")
     suspend fun getHomeRecommendList(@Path("page") page: String): XianDuViceEntity
 
-    // 首页推荐banner
+    // 首页banner
     @Headers("urls:baseUrlReport")
     @GET("/api/v2/feed?num=2&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
     suspend fun getHomeRecommendBannerList(): HomeRecommendBannerEntity
