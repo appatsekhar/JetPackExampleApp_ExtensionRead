@@ -12,7 +12,7 @@ import kotlinx.coroutines.*
 
 class DailyRepository{
 
-    suspend fun homeDailyResult(page: Int): List<QdailyResult>? = withContext(Dispatchers.IO){
+    suspend fun getHomeDailyList(page: Int): List<QdailyResult>? = withContext(Dispatchers.IO){
         val result = RetrofitManager.apiService.getHomeDailyList(ERAppConfig.PAGE_SIZE.toString(),page.toString()).results
         result
     }
@@ -24,7 +24,7 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, QdailyResult>) {
         safeLaunch{
-            val result = repository.homeDailyResult(1)
+            val result = repository.getHomeDailyList(1)
             result?.let {
                 callback.onResult(it,1,2)
                 CoroutineBus.post(EventMessage(ERAppConfig.HOME_DAILY_PAGE_DATA_INIT,null))
@@ -34,7 +34,7 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, QdailyResult>) {
         safeLaunch{
-            val result = repository.homeDailyResult(params.key)
+            val result = repository.getHomeDailyList(params.key)
             result?.let {
                 callback.onResult(it,params.key + 1)
             }

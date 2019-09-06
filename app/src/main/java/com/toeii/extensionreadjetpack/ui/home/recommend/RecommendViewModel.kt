@@ -27,7 +27,7 @@ class RecommendViewModel(private val repository: RecommendRepository) : ViewMode
 
     fun fetchBannerResult() {
         viewModelScope.safeLaunch {
-            bannerResult.value = repository.homeRecommendBannerResult()
+            bannerResult.value = repository.getHomeRecommendBannerList()
         }
     }
 

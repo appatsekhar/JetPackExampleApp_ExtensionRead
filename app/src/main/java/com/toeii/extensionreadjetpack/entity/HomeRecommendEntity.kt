@@ -1,6 +1,6 @@
 package com.toeii.extensionreadjetpack.entity
 
-data class XianDuViceEntity(
+data class HomeRecommendEntity(
     val error: Boolean,
     val results: List<ViceResult>
 )

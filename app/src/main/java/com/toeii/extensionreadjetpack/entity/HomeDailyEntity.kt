@@ -1,6 +1,6 @@
 package com.toeii.extensionreadjetpack.entity
 
-data class XianDuQdailyEntity(
+data class HomeDailyEntity(
     val error: Boolean,
     val results: List<QdailyResult>
 )

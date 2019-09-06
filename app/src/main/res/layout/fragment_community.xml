@@ -22,10 +22,12 @@
                     android:id="@+id/pull_to_refresh"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
-                        android:id="@+id/coordinator"
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_coordinator"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent">
+
+                </androidx.recyclerview.widget.RecyclerView>
             </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
         </FrameLayout>
 

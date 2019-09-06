@@ -5,8 +5,8 @@
     <string name="str_loading">加载中...</string>
     <string name="str_not_more">没有更多了</string>
 
-    <string name="str_home_tab_recommend">      推荐      </string>
-    <string name="str_home_tab_daily">      日报      </string>
+    <string name="str_home_tab_recommend">推荐</string>
+    <string name="str_home_tab_daily">日报</string>
 
     <string name="str_home_recommend_wonderful">精彩推荐</string>
 

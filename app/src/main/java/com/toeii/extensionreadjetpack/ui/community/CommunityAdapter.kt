@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.ui.home.recommend
+package com.toeii.extensionreadjetpack.ui.community
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +8,29 @@ import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.stx.xhb.androidx.XBanner
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BasePagedListAdapterObserver
-import com.toeii.extensionreadjetpack.databinding.ViewListHeaderRecommendBinding
+import com.toeii.extensionreadjetpack.databinding.ViewListItemCommunityBinding
+import com.toeii.extensionreadjetpack.databinding.ViewListItemCommunitySortBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemFooterBinding
-import com.toeii.extensionreadjetpack.databinding.ViewListItemRecommendBinding
-import com.toeii.extensionreadjetpack.databinding.ViewVpItemRecommendBinding
-import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
-import com.toeii.extensionreadjetpack.entity.ViceResult
+import com.toeii.extensionreadjetpack.databinding.ViewListItemHeaderBinding
+import com.toeii.extensionreadjetpack.entity.OpenEyeItemResult
+import com.toeii.extensionreadjetpack.entity.OpenEyeResult
 
-class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(diffCallback) {
+class CommunityItemAdapter: BaseQuickAdapter<OpenEyeItemResult, BaseViewHolder>(R.layout.view_list_item_community_sort) {
+
+    private lateinit var mBinding: ViewListItemCommunitySortBinding
+
+    override fun convert(helper: BaseViewHolder, item: OpenEyeItemResult) {
+        mBinding = initViewBindingImpl(helper.itemView) as ViewListItemCommunitySortBinding
+        mBinding.item = item
+    }
+
+}
+
+class CommunityContentAdapter : PagedListAdapter<OpenEyeResult, RecyclerView.ViewHolder>(CommunityContentAdapter.diffCallback) {
 
     internal var isLoadMore = 0
 
@@ -33,18 +45,18 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
         when (viewType) {
             ITEM_TYPE_HEADER -> HeaderViewHolder(parent)
             ITEM_TYPE_FOOTER -> FooterViewHolder(parent)
-            else -> RecommendViewHolder(parent)
+            else -> CommunityViewHolder(parent)
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HeaderViewHolder -> if(!currentList.isNullOrEmpty()) holder.bindsHeader(currentList!![0])
+            is HeaderViewHolder -> holder.bindsHeader(currentList?.get(0))
             is FooterViewHolder -> holder.bindsFooter(isLoadMore)
-            is RecommendViewHolder -> holder.bindTo(getDataItem(position))
+            is CommunityViewHolder -> holder.bindTo(getDataItem(position))
         }
     }
 
-    private fun getDataItem(position: Int): ViceResult? =
+    private fun getDataItem(position: Int): OpenEyeResult? =
         getItem(position-1)
 
     override fun getItemCount(): Int =
@@ -54,11 +66,12 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
         super.registerAdapterDataObserver(BasePagedListAdapterObserver(observer, 1))
     }
 
+
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<ViceResult>() {
-            override fun areItemsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean =
-                oldItem._id == newItem._id
-            override fun areContentsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean =
+        private val diffCallback = object : DiffUtil.ItemCallback<OpenEyeResult>() {
+            override fun areItemsTheSame(oldItem: OpenEyeResult, newItem: OpenEyeResult): Boolean =
+                oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: OpenEyeResult, newItem: OpenEyeResult): Boolean =
                 oldItem == newItem
         }
 
@@ -67,41 +80,35 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
     }
 }
 
-class RecommendViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-    LayoutInflater.from(parent.context).inflate(R.layout.view_list_item_recommend, parent, false)) {
 
-    private lateinit var mBinding : ViewListItemRecommendBinding
-    private var viceResult: ViceResult? = null
+class CommunityViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.view_list_item_community, parent, false)) {
 
-    fun bindTo(viceResult: ViceResult?) {
-        this.viceResult = viceResult
-        mBinding = initViewBindingImpl(itemView) as ViewListItemRecommendBinding
-        mBinding.item = viceResult
+    private lateinit var mBinding : ViewListItemCommunityBinding
+
+    fun bindTo(item: OpenEyeResult?) {
+        mBinding = initViewBindingImpl(itemView) as ViewListItemCommunityBinding
+        if (item != null) {
+            mBinding.item = item.data.content.data
+        }
     }
 
 }
 
 internal class HeaderViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-    LayoutInflater.from(parent.context).inflate(R.layout.view_list_header_recommend, parent, false)) {
+    LayoutInflater.from(parent.context).inflate(R.layout.view_list_item_header, parent, false)) {
 
-    private lateinit var mHeaderBinding : ViewListHeaderRecommendBinding
-    private lateinit var mVpBinding : ViewVpItemRecommendBinding
-    private val mHeadViewAdapter: XBanner.XBannerAdapter by lazy { getHeadPagerAdapter() }
+    private lateinit var mHeaderBinding : ViewListItemHeaderBinding
 
-    fun bindsHeader(viceResult: ViceResult?) {
-        mHeaderBinding = initViewBindingImpl(itemView) as ViewListHeaderRecommendBinding
-        if (viceResult != null) {
-            mHeaderBinding.itemPager.setBannerData(R.layout.view_vp_item_recommend,viceResult.bannerData)
-            mHeaderBinding.itemPager.loadImage(mHeadViewAdapter)
-            mHeaderBinding.itemTitleText.text = mHeaderBinding.root.resources.getString(R.string.str_home_recommend_wonderful)
+    fun bindsHeader(item: OpenEyeResult?) {
+        mHeaderBinding = initViewBindingImpl(itemView) as ViewListItemHeaderBinding
+        mHeaderBinding.headerText.visibility = View.GONE
+        if (item != null && item.data.header.title.isNotEmpty()) {
+            mHeaderBinding.headerText.visibility = View.VISIBLE
+            mHeaderBinding.headerText.text = item.data.header.title
         }
     }
 
-    private fun getHeadPagerAdapter(): XBanner.XBannerAdapter =
-        XBanner.XBannerAdapter { _, model, view, _ ->
-            mVpBinding = initViewBindingImpl(view) as ViewVpItemRecommendBinding
-            mVpBinding.bannerItem = model as RecommendBannerItem
-        }
 
 }
 
@@ -120,6 +127,7 @@ internal class FooterViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     }
 
 }
+
 
 private fun initViewBindingImpl(itemView: View): ViewDataBinding? =
     if (null == DataBindingUtil.getBinding(itemView)) {

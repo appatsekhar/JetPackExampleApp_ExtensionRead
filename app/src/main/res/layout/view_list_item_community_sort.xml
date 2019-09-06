@@ -1,47 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
+<layout>
+
+    <data>
+
+        <variable name="item"
+                  type="com.toeii.extensionreadjetpack.entity.OpenEyeItemResult"/>
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 android:orientation="vertical"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:paddingTop="@dimen/space_25"
+                 android:paddingLeft="@dimen/space_5"
+                 android:paddingRight="@dimen/space_5"
+                 android:paddingBottom="@dimen/space_10"
+                 android:background="#fff"
+    >
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:id="@+id/community_cover"
+                android:layout_width="@dimen/space_120"
+                android:layout_height="@dimen/space_70"
+                app:qmui_border_color="@android:color/white"
+                app:qmui_border_width="1px"
+                app:qmui_corner_radius="@dimen/space_6"
+                app:imageUrl="@{item.data.bgPicture}"
+        />
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:id="@+id/community_cover_item"
+                android:layout_width="@dimen/space_120"
+                android:layout_height="@dimen/space_70"
+                app:qmui_border_color="@android:color/white"
+                app:qmui_border_width="1px"
+                app:qmui_corner_radius="@dimen/space_6"
+                android:src="#5f000000"
+        />
+
+        <TextView
+                android:id="@+id/community_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/space_25"
-                android:paddingLeft="@dimen/space_5"
-                android:paddingRight="@dimen/space_5"
-                android:paddingBottom="@dimen/space_10"
-                android:background="#fff"
->
-
-    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-            android:id="@+id/community_cover"
-            android:layout_width="@dimen/space_120"
-            android:layout_height="@dimen/space_70"
-            android:src="@mipmap/logo_extension_read"
-            app:qmui_border_color="@android:color/white"
-            app:qmui_border_width="1px"
-            app:qmui_corner_radius="@dimen/space_6"
-    />
-
-    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-            android:id="@+id/community_cover_item"
-            android:layout_width="@dimen/space_120"
-            android:layout_height="@dimen/space_70"
-            app:qmui_border_color="@android:color/white"
-            app:qmui_border_width="1px"
-            app:qmui_corner_radius="@dimen/space_6"
-            android:src="#5f000000"
-    />
-
-    <TextView
-            android:id="@+id/community_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Theme Title"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_20"
-            android:singleLine="true"
-            android:layout_gravity="center"
-    />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_20"
+                android:singleLine="true"
+                android:layout_gravity="center"
+                android:text="@{item.data.tagName}"
+        />
 
 
 
-</FrameLayout>
+    </FrameLayout>
+
+</layout>
+
+

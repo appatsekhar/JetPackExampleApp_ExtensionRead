@@ -13,9 +13,9 @@ import kotlinx.coroutines.*
 
 class RecommendRepository {
 
-    suspend fun homeRecommendResult(page: Int): List<ViceResult>? = withContext(Dispatchers.IO) {
+    suspend fun getHomeRecommendList(page: Int): List<ViceResult>? = withContext(Dispatchers.IO) {
         val result = RetrofitManager.apiService.getHomeRecommendList(ERAppConfig.PAGE_SIZE.toString(),page.toString()).results
-        val bannerData =  homeRecommendBannerResult()
+        val bannerData =  getHomeRecommendBannerList()
         if(bannerData!!.isNotEmpty()){
             val filterData = bannerData.filter {
                 it?.data?.author != null
@@ -25,7 +25,7 @@ class RecommendRepository {
         result
     }
 
-    suspend fun homeRecommendBannerResult(): List<RecommendBannerItem>? = withContext(Dispatchers.IO) {
+    suspend fun getHomeRecommendBannerList(): List<RecommendBannerItem>? = withContext(Dispatchers.IO) {
         val issueList = RetrofitManager.apiService.getHomeRecommendBannerList().issueList
         val result = ArrayList<RecommendBannerItem>()
         if(issueList.isNotEmpty()){
@@ -42,7 +42,7 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ViceResult>) {
         safeLaunch {
-            val data = repository.homeRecommendResult(1)
+            val data = repository.getHomeRecommendList(1)
             data?.let {
                 callback.onResult(it, 1,2)
                 CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_INIT,null))
@@ -52,7 +52,7 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ViceResult>) {
         safeLaunch {
-            val data = repository.homeRecommendResult(params.key)
+            val data = repository.getHomeRecommendList(params.key)
             if(!data.isNullOrEmpty()){
                 data.let {
                     callback.onResult(it, params.key + 1)
