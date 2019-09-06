@@ -82,14 +82,13 @@ dependencies {
     implementation "com.yanzhenjie.permission:x:$permission_version"
     // vasSonic
     implementation "com.tencent.sonic:sdk:$sonic_version"
-    // baseRecyclerViewAdapterHelper
-    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapter_version" //PagedListAdapter替代
     // qmui
     implementation "com.qmuiteam:qmui:$qmui_version"
     implementation "com.qmuiteam:arch:$qmui_arch_version"
     annotationProcessor  "com.qmuiteam:arch-compiler:$qmui_arch_version"
     // XBanner
     implementation "com.github.xiaohaibin:XBanner:$xbanner_version"
-
+    // baseRecyclerViewAdapterHelper
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapter_version" //PagedListAdapter替代
 
 }

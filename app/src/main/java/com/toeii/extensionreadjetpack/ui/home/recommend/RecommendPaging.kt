@@ -53,16 +53,18 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ViceResult>) {
         safeLaunch {
             val data = repository.homeRecommendResult(params.key)
-            // TODO
-            if(!data.isNullOrEmpty() && data.isNotEmpty()){
+            if(!data.isNullOrEmpty()){
                 data.let {
                     callback.onResult(it, params.key + 1)
+                }
+                if(data.size < ERAppConfig.PAGE_SIZE){
+                    CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_LOAD_END,null))
+                }else{
                     CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_LOAD_START,null))
                 }
             }else{
                 CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_LOAD_END,null))
             }
-
         }
     }
 

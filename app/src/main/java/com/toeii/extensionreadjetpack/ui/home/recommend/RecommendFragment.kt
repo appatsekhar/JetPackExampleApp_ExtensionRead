@@ -35,6 +35,7 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
     }
 
     override fun initView(view : View) {
+
         //TODO NestedScrollLayout会造成Paging失效
         /*
             val headView = LayoutInflater.from(activity).inflate(R.layout.view_list_header_recommend,null)
@@ -62,36 +63,13 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
             mBinding.coordinator.setBottomAreaView(mRecyclerView, recyclerViewLp)
         */
 
-
         mBinding.emptyView.show(true)
+        
         mBinding.rvCoordinator.layoutManager = LinearLayoutManager(context)
         mBinding.rvCoordinator.isNestedScrollingEnabled = true
         (mBinding.rvCoordinator.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         mBinding.rvCoordinator.adapter = mRecommendAdapter
         mBinding.rvCoordinator.addItemDecoration(SpacesItemDecoration(10))
-
-        CoroutineBus.register(this.javaClass.simpleName, UI, EventMessage::class.java) {
-            when {
-                it.tag == ERAppConfig.PAGE_DATA_INIT -> {
-                    mBinding.emptyView.show(false)
-                    mRecommendAdapter.notifyDataSetChanged()
-                }
-                it.tag == ERAppConfig.PAGE_DATA_LOAD_START -> {
-                    if(!mRecommendAdapter.isLoadMore){
-                       mRecommendAdapter.isLoadMore = true
-                       mRecommendAdapter.notifyDataSetChanged()
-                    }
-                }
-                it.tag == ERAppConfig.PAGE_DATA_LOAD_END -> {
-                    // TODO
-                    if(mRecommendAdapter.isLoadMore){
-                       mRecommendAdapter.isLoadMore = false
-                       mRecommendAdapter.notifyDataSetChanged()
-                    }
-                }
-            }
-
-        }
 
     }
 
@@ -114,6 +92,28 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
                 mHandler.postDelayed({ mBinding.pullToRefresh.finishRefresh() }, 500)
             }
         })
+
+        CoroutineBus.register(this.javaClass.simpleName, UI, EventMessage::class.java) {
+            when {
+                it.tag == ERAppConfig.PAGE_DATA_INIT -> {
+                    mBinding.emptyView.show(false)
+                    mRecommendAdapter.notifyDataSetChanged()
+                }
+                it.tag == ERAppConfig.PAGE_DATA_LOAD_START -> {
+                    if(!mRecommendAdapter.isLoadMore){
+                        mRecommendAdapter.isLoadMore = true
+                        mRecommendAdapter.notifyDataSetChanged()
+                    }
+                }
+                it.tag == ERAppConfig.PAGE_DATA_LOAD_END -> {
+                    if(mRecommendAdapter.isLoadMore){
+                        mRecommendAdapter.isLoadMore = false
+                        mRecommendAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+
     }
 
     private fun fetchRecommendResult() {
