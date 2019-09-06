@@ -20,6 +20,7 @@ class RecommendViewModel(private val repository: RecommendRepository) : ViewMode
                 .setPageSize(ERAppConfig.PAGE_SIZE)
                 .setEnablePlaceholders(ERAppConfig.ENABLE_PLACEHOLDERS)
                 .setInitialLoadSizeHint(ERAppConfig.PAGE_SIZE_HINT)
+                .setPrefetchDistance((ERAppConfig.PAGE_SIZE/2))
                 .build()
         ).build()
     }
@@ -35,9 +36,7 @@ class RecommendViewModel(private val repository: RecommendRepository) : ViewMode
 class RecommendModelFactory(private val repository: RecommendRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return RecommendViewModel(repository) as T
-    }
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = RecommendViewModel(repository) as T
 
 }
 

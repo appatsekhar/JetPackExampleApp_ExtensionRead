@@ -1,6 +1,5 @@
 package com.toeii.extensionreadjetpack.ui.home.recommend
 
-import android.os.Handler
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -21,21 +20,15 @@ import com.toeii.extensionreadjetpack.R
 
 class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
 
-//    private val mCoordinatorScrollTopLayout: QMUIContinuousNestedTopLinearLayout by lazy { QMUIContinuousNestedTopLinearLayout(context) }
-//    private val mRecyclerView: RecyclerView by lazy { QMUIContinuousNestedBottomRecyclerView(context!!) }
     private val mRecommendAdapter: RecommendAdapter by lazy { RecommendAdapter() }
-    private val mHandler: Handler by lazy { Handler() }
 
     private val mViewModel: RecommendViewModel by lazy(LazyThreadSafetyMode.NONE)  {
         ViewModelProviders.of(this,RecommendModelFactory(RecommendRepository()))[RecommendViewModel::class.java]
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_recommend
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_recommend
 
     override fun initView(view : View) {
-
         //TODO NestedScrollLayout会造成Paging失效
         /*
             val headView = LayoutInflater.from(activity).inflate(R.layout.view_list_header_recommend,null)
@@ -46,15 +39,7 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
             val topLp = CoordinatorLayout.LayoutParams(matchParent, ViewGroup.LayoutParams.WRAP_CONTENT)
             topLp.behavior = QMUIContinuousNestedTopAreaBehavior(context)
             mBinding.coordinator.setTopAreaView(mCoordinatorScrollTopLayout, topLp)
-
-            mBinding.rvCoordinator.layoutManager = object : LinearLayoutManager(context) {
-                override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
-                    return RecyclerView.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                }
-            }
+            mBinding.rvCoordinator.layoutManager = LinearLayoutManager(context)
             val recyclerViewLp = CoordinatorLayout.LayoutParams(matchParent, matchParent)
             recyclerViewLp.behavior = QMUIContinuousNestedBottomAreaBehavior()
             mBinding.rvCoordinator.adapter = mRecommendAdapter
@@ -64,7 +49,7 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
         */
 
         mBinding.emptyView.show(true)
-        
+
         mBinding.rvCoordinator.layoutManager = LinearLayoutManager(context)
         mBinding.rvCoordinator.isNestedScrollingEnabled = true
         (mBinding.rvCoordinator.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -79,39 +64,23 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
 
     override fun initListener() {
         mBinding.pullToRefresh.setOnPullListener(object : QMUIPullRefreshLayout.OnPullListener {
-            override fun onMoveTarget(offset: Int) {
+            override fun onMoveTarget(offset: Int) {}
 
-            }
-
-            override fun onMoveRefreshView(offset: Int) {
-
-            }
+            override fun onMoveRefreshView(offset: Int) {}
 
             override fun onRefresh() {
                 initData()
-                mHandler.postDelayed({ mBinding.pullToRefresh.finishRefresh() }, 500)
+                mBinding.pullToRefresh.postDelayed({ mBinding.pullToRefresh.finishRefresh() }, 500)
             }
         })
 
         CoroutineBus.register(this.javaClass.simpleName, UI, EventMessage::class.java) {
             when {
-                it.tag == ERAppConfig.PAGE_DATA_INIT -> {
-                    mBinding.emptyView.show(false)
-                    mRecommendAdapter.notifyDataSetChanged()
-                }
-                it.tag == ERAppConfig.PAGE_DATA_LOAD_START -> {
-                    if(!mRecommendAdapter.isLoadMore){
-                        mRecommendAdapter.isLoadMore = true
-                        mRecommendAdapter.notifyDataSetChanged()
-                    }
-                }
-                it.tag == ERAppConfig.PAGE_DATA_LOAD_END -> {
-                    if(mRecommendAdapter.isLoadMore){
-                        mRecommendAdapter.isLoadMore = false
-                        mRecommendAdapter.notifyDataSetChanged()
-                    }
-                }
+                it.tag == ERAppConfig.HOME_RECOMMEND_PAGE_DATA_INIT ->  mBinding.emptyView.show(false)
+                it.tag == ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_START -> mRecommendAdapter.isLoadMore = 1
+                it.tag == ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_END ->  mRecommendAdapter.isLoadMore = -1
             }
+            mRecommendAdapter.notifyDataSetChanged()
         }
 
     }

@@ -15,9 +15,11 @@ class ERAppConfig {
         const val PAGE_SIZE_HINT = 20
         const val ENABLE_PLACEHOLDERS = false
 
-        const val PAGE_DATA_INIT = "load_init"
-        const val PAGE_DATA_LOAD_START = "load_start"
-        const val PAGE_DATA_LOAD_END = "load_end"
+        const val HOME_RECOMMEND_PAGE_DATA_INIT = "home_recommend_page_data_init"
+        const val HOME_RECOMMEND_PAGE_DATA_LOAD_START = "home_recommend_page_data_load_start"
+        const val HOME_RECOMMEND_PAGE_DATA_LOAD_END = "home_recommend_page_data_load_end"
+
+        const val HOME_DAILY_PAGE_DATA_INIT = "home_daily_page_data_init"
 
     }
 

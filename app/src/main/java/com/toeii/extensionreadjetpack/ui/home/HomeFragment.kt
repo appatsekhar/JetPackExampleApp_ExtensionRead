@@ -48,8 +48,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), NavigationView.OnNavig
         mBinding.homeTabs.setPadding(space,0,space,0)
         for(position in 1..2){
             val tab = when (position) {
-                1 -> QMUITabSegment.Tab("      推荐      ")
-                2 -> QMUITabSegment.Tab("      日报      ")
+                1 -> QMUITabSegment.Tab(resources.getString(R.string.str_home_tab_recommend))
+                2 -> QMUITabSegment.Tab(resources.getString(R.string.str_home_tab_daily))
                 else -> null
             }
             if(null != tab){

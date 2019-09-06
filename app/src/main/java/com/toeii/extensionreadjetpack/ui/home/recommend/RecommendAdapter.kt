@@ -20,23 +20,21 @@ import com.toeii.extensionreadjetpack.entity.ViceResult
 
 class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(diffCallback) {
 
-    internal var isLoadMore = true
+    internal var isLoadMore = 0
 
-    override fun getItemViewType(position: Int): Int {
-        return when (position) {
+    override fun getItemViewType(position: Int): Int =
+        when (position) {
             0 -> ITEM_TYPE_HEADER
             itemCount - 1 -> ITEM_TYPE_FOOTER
             else -> super.getItemViewType(position)
         }
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        when (viewType) {
             ITEM_TYPE_HEADER -> HeaderViewHolder(parent)
             ITEM_TYPE_FOOTER -> FooterViewHolder(parent)
             else -> RecommendViewHolder(parent)
         }
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -46,13 +44,11 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
         }
     }
 
-    private fun getDataItem(position: Int): ViceResult? {
-        return getItem(position-1)
-    }
+    private fun getDataItem(position: Int): ViceResult? =
+        getItem(position-1)
 
-    override fun getItemCount(): Int {
-        return super.getItemCount() + 2
-    }
+    override fun getItemCount(): Int =
+        super.getItemCount() + 2
 
     override fun registerAdapterDataObserver(observer: RecyclerView.AdapterDataObserver) {
         super.registerAdapterDataObserver(BasePagedListAdapterObserver(observer, 1))
@@ -60,15 +56,10 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<ViceResult>() {
-            override fun areItemsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean {
-                return oldItem._id == newItem._id
-            }
-
-
-            override fun areContentsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean {
-                return oldItem == newItem
-            }
-
+            override fun areItemsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean =
+                oldItem._id == newItem._id
+            override fun areContentsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean =
+                oldItem == newItem
         }
 
         private const val ITEM_TYPE_HEADER = 99
@@ -102,16 +93,15 @@ internal class HeaderViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         if (viceResult != null) {
             mHeaderBinding.itemPager.setBannerData(R.layout.view_vp_item_recommend,viceResult.bannerData)
             mHeaderBinding.itemPager.loadImage(mHeadViewAdapter)
-            mHeaderBinding.itemTitleText.text = "精彩推荐"
+            mHeaderBinding.itemTitleText.text = mHeaderBinding.root.resources.getString(R.string.str_home_recommend_wonderful)
         }
     }
 
-    private fun getHeadPagerAdapter(): XBanner.XBannerAdapter {
-        return XBanner.XBannerAdapter { _, model, view, _ ->
+    private fun getHeadPagerAdapter(): XBanner.XBannerAdapter =
+        XBanner.XBannerAdapter { _, model, view, _ ->
             mVpBinding = initViewBindingImpl(view) as ViewVpItemRecommendBinding
             mVpBinding.bannerItem = model as RecommendBannerItem
         }
-    }
 
 }
 
@@ -120,21 +110,20 @@ internal class FooterViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
     private lateinit var mFooterBinding : ViewListItemFooterBinding
 
-    fun bindsFooter(isLoadMore: Boolean) {
+    fun bindsFooter(isLoadMore: Int) {
         mFooterBinding = initViewBindingImpl(itemView) as ViewListItemFooterBinding
-        if(isLoadMore){
-            mFooterBinding.tvBanner.text = "加载中..."
-        }else{
-            mFooterBinding.tvBanner.text = "没有更多了"
+        when(isLoadMore){
+            0 ->  mFooterBinding.tvBanner.text = ""
+            1 ->  mFooterBinding.tvBanner.text = mFooterBinding.root.resources.getString(R.string.str_loading)
+            -1 ->  mFooterBinding.tvBanner.text = mFooterBinding.root.resources.getString(R.string.str_not_more)
         }
     }
 
 }
 
-private fun initViewBindingImpl(itemView: View): ViewDataBinding? {
-    return if (null == DataBindingUtil.getBinding(itemView)) {
+private fun initViewBindingImpl(itemView: View): ViewDataBinding? =
+    if (null == DataBindingUtil.getBinding(itemView)) {
         DataBindingUtil.bind(itemView)
     } else {
         DataBindingUtil.getBinding(itemView)
     }
-}

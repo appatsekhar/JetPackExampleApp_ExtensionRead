@@ -7,6 +7,14 @@
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent">
+
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/qmui_config_color_white"
+                android:fitsSystemWindows="true"/>
+
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -15,10 +23,11 @@
                     android:id="@+id/pull_to_refresh"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
-                        android:id="@+id/coordinator"
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_coordinator"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent">
+                </androidx.recyclerview.widget.RecyclerView>
             </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
         </FrameLayout>
 

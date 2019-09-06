@@ -14,7 +14,7 @@ import kotlinx.coroutines.*
 class RecommendRepository {
 
     suspend fun homeRecommendResult(page: Int): List<ViceResult>? = withContext(Dispatchers.IO) {
-        val result = RetrofitManager.apiService.getHomeRecommendList(page.toString()).results
+        val result = RetrofitManager.apiService.getHomeRecommendList(ERAppConfig.PAGE_SIZE.toString(),page.toString()).results
         val bannerData =  homeRecommendBannerResult()
         if(bannerData!!.isNotEmpty()){
             val filterData = bannerData.filter {
@@ -45,7 +45,7 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
             val data = repository.homeRecommendResult(1)
             data?.let {
                 callback.onResult(it, 1,2)
-                CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_INIT,null))
+                CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_INIT,null))
             }
         }
     }
@@ -58,12 +58,12 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
                     callback.onResult(it, params.key + 1)
                 }
                 if(data.size < ERAppConfig.PAGE_SIZE){
-                    CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_LOAD_END,null))
+                    CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_END,null))
                 }else{
-                    CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_LOAD_START,null))
+                    CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_START,null))
                 }
             }else{
-                CoroutineBus.post(EventMessage(ERAppConfig.PAGE_DATA_LOAD_END,null))
+                CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_END,null))
             }
         }
     }
