@@ -15,7 +15,7 @@ import com.toeii.extensionreadjetpack.common.UI
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.databinding.FragmentDailyBinding
 import com.toeii.extensionreadjetpack.entity.EventMessage
-import com.toeii.extensionreadjetpack.entity.QdailyResult
+import com.toeii.extensionreadjetpack.entity.HomeDailyItemListBean
 
 class DailyFragment : BaseFragment<FragmentDailyBinding>(){
 
@@ -41,7 +41,7 @@ class DailyFragment : BaseFragment<FragmentDailyBinding>(){
 
     override fun initData() {
         mViewModel.fetchResult()
-        mViewModel.result?.observe(this, Observer<PagedList<QdailyResult>>{
+        mViewModel.result?.observe(this, Observer<PagedList<HomeDailyItemListBean>>{
             mDailyAdapter.submitList(it)
         })
     }

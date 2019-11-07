@@ -30,13 +30,13 @@ object RetrofitManager {
 
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val urlInterceptor = RequestUrlInterceptor()
+//        val urlInterceptor = RequestUrlInterceptor()
 
         return OkHttpClient.Builder()
             .connectTimeout(5000L, TimeUnit.MILLISECONDS)
             .readTimeout(10_000, TimeUnit.MILLISECONDS)
             .writeTimeout(30_000, TimeUnit.MILLISECONDS)
-            .addInterceptor(urlInterceptor)
+//            .addInterceptor(urlInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }

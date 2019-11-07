@@ -18,11 +18,12 @@ class RequestUrlInterceptor : Interceptor {
 
             builder.removeHeader("urls")
             val headerValue = headerValues[0]
-            val newBaseUrl = if(headerValue.toString().isNotEmpty()){
-                ERAppConfig.BASE_URL_KY.toHttpUrlOrNull()!!
-            }else{
-                ERAppConfig.BASE_URL.toHttpUrlOrNull()!!
-            }
+            val newBaseUrl = ERAppConfig.BASE_URL.toHttpUrlOrNull()!!
+//            val newBaseUrl = if(headerValue.toString().isNotEmpty()){
+//                ERAppConfig.BASE_URL_KY.toHttpUrlOrNull()!!
+//            }else{
+//                ERAppConfig.BASE_URL.toHttpUrlOrNull()!!
+//            }
 
             val newFullUrl = oldHttpUrl
                     .newBuilder()

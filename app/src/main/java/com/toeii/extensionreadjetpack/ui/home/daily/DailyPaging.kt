@@ -6,23 +6,23 @@ import com.toeii.extensionreadjetpack.common.CoroutineBus
 import com.toeii.extensionreadjetpack.common.safeLaunch
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.entity.EventMessage
-import com.toeii.extensionreadjetpack.entity.QdailyResult
+import com.toeii.extensionreadjetpack.entity.HomeDailyItemListBean
 import com.toeii.extensionreadjetpack.network.RetrofitManager
 import kotlinx.coroutines.*
 
 class DailyRepository{
 
-    suspend fun getHomeDailyList(page: Int): List<QdailyResult>? = withContext(Dispatchers.IO){
-        val result = RetrofitManager.apiService.getHomeDailyList(ERAppConfig.PAGE_SIZE.toString(),page.toString()).results
+    suspend fun getHomeDailyList(page: Int): List<HomeDailyItemListBean>? = withContext(Dispatchers.IO){
+        val result = RetrofitManager.apiService.getHomeDailyList(System.currentTimeMillis().toString(),page.toString()).itemList
         result
     }
 
 }
 
-class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSource<Int, QdailyResult>(), CoroutineScope by MainScope(){
+class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSource<Int, HomeDailyItemListBean>(), CoroutineScope by MainScope(){
 
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, QdailyResult>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, HomeDailyItemListBean>) {
         safeLaunch{
             val result = repository.getHomeDailyList(1)
             result?.let {
@@ -32,7 +32,7 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, QdailyResult>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, HomeDailyItemListBean>) {
         safeLaunch{
             val result = repository.getHomeDailyList(params.key)
             result?.let {
@@ -41,7 +41,7 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
         }
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, QdailyResult>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, HomeDailyItemListBean>) {
 
     }
 
@@ -52,6 +52,6 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
 
 }
 
-class DailyDataSourceFactory(private val repository: DailyRepository) : DataSource.Factory<Int, QdailyResult>() {
-    override fun create(): DataSource<Int, QdailyResult> = DailyDataSource(repository)
+class DailyDataSourceFactory(private val repository: DailyRepository) : DataSource.Factory<Int, HomeDailyItemListBean>() {
+    override fun create(): DataSource<Int, HomeDailyItemListBean> = DailyDataSource(repository)
 }

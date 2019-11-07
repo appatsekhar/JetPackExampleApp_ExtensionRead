@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.toeii.extensionreadjetpack.config.ERAppConfig
-import com.toeii.extensionreadjetpack.entity.QdailyResult
+import com.toeii.extensionreadjetpack.entity.HomeDailyItemListBean
 
 class DailyViewModel(private val repository: DailyRepository) : ViewModel() {
 
-    var result: LiveData<PagedList<QdailyResult>>? = null
+    var result: LiveData<PagedList<HomeDailyItemListBean>>? = null
 
     fun fetchResult() {
         result = LivePagedListBuilder(

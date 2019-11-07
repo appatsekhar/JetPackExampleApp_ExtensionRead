@@ -31,6 +31,7 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    //TODO 迁至外部gradle
     def lifecycle_version = '2.2.0-alpha02'
     def paging_version = '2.1.0-alpha01'
     def room_version = '2.1.0'
