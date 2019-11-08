@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 class DailyRepository{
 
     suspend fun getHomeDailyList(page: Int): List<HomeDailyItemListBean>? = withContext(Dispatchers.IO){
-        val result = RetrofitManager.apiService.getHomeDailyList(System.currentTimeMillis().toString(),page.toString()).itemList
+        val result = RetrofitManager.apiService.getHomeDailyList(System.currentTimeMillis().toString()).itemList
         result
     }
 
@@ -33,12 +33,7 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, HomeDailyItemListBean>) {
-        safeLaunch{
-            val result = repository.getHomeDailyList(params.key)
-            result?.let {
-                callback.onResult(it,params.key + 1)
-            }
-        }
+
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, HomeDailyItemListBean>) {

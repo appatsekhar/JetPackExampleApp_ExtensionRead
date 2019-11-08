@@ -15,10 +15,10 @@ import com.toeii.extensionreadjetpack.databinding.ViewListHeaderRecommendBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemFooterBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemRecommendBinding
 import com.toeii.extensionreadjetpack.databinding.ViewVpItemRecommendBinding
+import com.toeii.extensionreadjetpack.entity.HomeRecommendItemListBean
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
-import com.toeii.extensionreadjetpack.entity.ViceResult
 
-class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(diffCallback) {
+class RecommendAdapter : PagedListAdapter<HomeRecommendItemListBean, RecyclerView.ViewHolder>(diffCallback) {
 
     internal var isLoadMore = 0
 
@@ -44,7 +44,7 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
         }
     }
 
-    private fun getDataItem(position: Int): ViceResult? =
+    private fun getDataItem(position: Int): HomeRecommendItemListBean? =
         getItem(position-1)
 
     override fun getItemCount(): Int =
@@ -55,10 +55,10 @@ class RecommendAdapter : PagedListAdapter<ViceResult, RecyclerView.ViewHolder>(d
     }
 
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<ViceResult>() {
-            override fun areItemsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean =
-                oldItem._id == newItem._id
-            override fun areContentsTheSame(oldItem: ViceResult, newItem: ViceResult): Boolean =
+        private val diffCallback = object : DiffUtil.ItemCallback<HomeRecommendItemListBean>() {
+            override fun areItemsTheSame(oldItem: HomeRecommendItemListBean, newItem: HomeRecommendItemListBean): Boolean =
+                oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: HomeRecommendItemListBean, newItem: HomeRecommendItemListBean): Boolean =
                 oldItem == newItem
         }
 
@@ -71,12 +71,16 @@ class RecommendViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.view_list_item_recommend, parent, false)) {
 
     private lateinit var mBinding : ViewListItemRecommendBinding
-    private var viceResult: ViceResult? = null
 
-    fun bindTo(viceResult: ViceResult?) {
-        this.viceResult = viceResult
+    fun bindTo(data: HomeRecommendItemListBean?) {
         mBinding = initViewBindingImpl(itemView) as ViewListItemRecommendBinding
-        mBinding.item = viceResult
+        if(data?.type == "textCard"){
+            mBinding.rlRecommendLayout.layoutParams.height = 0
+        }else{
+            mBinding.rlRecommendLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        }
+        //TODO 数据核对
+        mBinding.item = data
     }
 
 }
@@ -88,7 +92,7 @@ internal class HeaderViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     private lateinit var mVpBinding : ViewVpItemRecommendBinding
     private val mHeadViewAdapter: XBanner.XBannerAdapter by lazy { getHeadPagerAdapter() }
 
-    fun bindsHeader(viceResult: ViceResult?) {
+    fun bindsHeader(viceResult: HomeRecommendItemListBean?) {
         mHeaderBinding = initViewBindingImpl(itemView) as ViewListHeaderRecommendBinding
         if (viceResult != null) {
             mHeaderBinding.itemPager.setBannerData(R.layout.view_vp_item_recommend,viceResult.bannerData)

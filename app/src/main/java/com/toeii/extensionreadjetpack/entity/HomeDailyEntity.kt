@@ -1,8 +1,6 @@
 package com.toeii.extensionreadjetpack.entity
 
-data class HomeDailyEntity(val itemList: List<HomeDailyItemListBean>) {
-
-}
+data class HomeDailyEntity(val itemList: List<HomeDailyItemListBean>)
 
 data class HomeDailyItemListBean(val type: String,
                         var data: HomeDailyDataBean,
@@ -36,9 +34,7 @@ data class HomeDailyContentBean(val type: String,
                        val data: HomeDailyContentDataBean,
                        var tag: Any?,
                        val id: Int,
-                       val adIndex: Int) {
-
-}
+                       val adIndex: Int)
 
 
 data class HomeDailyContentDataBean(val dataType: String,
@@ -74,9 +70,7 @@ data class HomeDailyContentDataBean(val dataType: String,
                     val urls: List<String>,
                     val status: String,
                     val releaseTime: Long,
-                    val urlsWithWatermark: List<String>) {
-
-}
+                    val urlsWithWatermark: List<String>)
 
 
 data class HomeDailyTagsBean(val id: Int,
@@ -130,10 +124,7 @@ data class HomeDailyAuthorBean(val id: Int,
                       val approvedNotReadyVideoCount: Int,
                       val ifPgc: Boolean,
                       val recSort: Int,
-                      val expert: Boolean) {
-
-}
-
+                      val expert: Boolean)
 
 data class HomeDailyCoverBean(val feed: String,
                      val detail: String,

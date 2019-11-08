@@ -7,8 +7,6 @@ import com.toeii.extensionreadjetpack.base.BasePagedListAdapter
 import com.toeii.extensionreadjetpack.base.BaseViewHolder
 import com.toeii.extensionreadjetpack.databinding.ViewListItemDailyBinding
 import com.toeii.extensionreadjetpack.entity.HomeDailyItemListBean
-import java.text.SimpleDateFormat
-
 
 class DailyAdapter: BasePagedListAdapter<HomeDailyItemListBean, ViewListItemDailyBinding>(DIFF_CALLBACK) {
 
@@ -19,13 +17,12 @@ class DailyAdapter: BasePagedListAdapter<HomeDailyItemListBean, ViewListItemDail
             holder.binding.rlDailyLayout.layoutParams.height = 0
         }else{
             holder.binding.rlDailyLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            data.data.header.iconType = "发布："
             if(data.data.content.data.dataType == "VideoBeanForClient"){
                 data.data.header.issuerName = data.data.content.data.author.name
                 data.data.header.icon = data.data.content.data.author.icon
-                data.data.header.iconType =  data.data.content.data.author.description
+                data.data.header.iconType = data.data.content.data.author.description
             }else if(data.data.content.data.dataType == "UgcPictureBean"){
-                var template = SimpleDateFormat("MM-dd HH:mm")
-                data.data.header.iconType = "发布于："+template.format(data.data.content.data.owner.releaseDate)
                 data.data.header.issuerName = data.data.content.data.owner.nickname
                 data.data.header.icon = data.data.content.data.owner.cover.toString()
                 data.data.header.iconType = data.data.content.data.owner.description

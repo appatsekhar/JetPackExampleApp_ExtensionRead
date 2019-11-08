@@ -5,12 +5,12 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
-import com.toeii.extensionreadjetpack.entity.ViceResult
 import com.toeii.extensionreadjetpack.common.safeLaunch
+import com.toeii.extensionreadjetpack.entity.HomeRecommendItemListBean
 
 class RecommendViewModel(private val repository: RecommendRepository) : ViewModel() {
 
-    var result: LiveData<PagedList<ViceResult>>? = null
+    var result: LiveData<PagedList<HomeRecommendItemListBean>>? = null
     var bannerResult = MutableLiveData<List<RecommendBannerItem>>()
 
     fun fetchResult() {

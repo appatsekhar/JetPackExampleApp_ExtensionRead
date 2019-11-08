@@ -39,7 +39,7 @@
                 android:singleLine="true"
                 android:layout_toRightOf="@id/daily_icon"
                 android:layout_marginLeft="@dimen/space_10"
-                android:layout_marginTop="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_15"
                 android:text="@{item.data.header.issuerName}"
         />
 

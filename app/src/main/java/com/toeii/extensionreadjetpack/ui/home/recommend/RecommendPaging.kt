@@ -4,17 +4,17 @@ import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.toeii.extensionreadjetpack.common.CoroutineBus
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
-import com.toeii.extensionreadjetpack.entity.ViceResult
 import com.toeii.extensionreadjetpack.network.RetrofitManager
 import com.toeii.extensionreadjetpack.common.safeLaunch
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.entity.EventMessage
+import com.toeii.extensionreadjetpack.entity.HomeRecommendItemListBean
 import kotlinx.coroutines.*
 
 class RecommendRepository {
 
-    suspend fun getHomeRecommendList(page: Int): List<ViceResult>? = withContext(Dispatchers.IO) {
-        val result = RetrofitManager.apiService.getHomeRecommendList(ERAppConfig.PAGE_SIZE.toString(),page.toString()).results
+    suspend fun getHomeRecommendList(page: Int): List<HomeRecommendItemListBean>? = withContext(Dispatchers.IO) {
+        val result = RetrofitManager.apiService.getHomeRecommendList(page.toString()).itemList
         val bannerData =  getHomeRecommendBannerList()
         if(bannerData!!.isNotEmpty()){
             val filterData = bannerData.filter {
@@ -38,9 +38,9 @@ class RecommendRepository {
 
 }
 
-class RecommendDataSource(private val repository: RecommendRepository) :PageKeyedDataSource<Int, ViceResult>(), CoroutineScope by MainScope(){
+class RecommendDataSource(private val repository: RecommendRepository) :PageKeyedDataSource<Int, HomeRecommendItemListBean>(), CoroutineScope by MainScope(){
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ViceResult>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, HomeRecommendItemListBean>) {
         safeLaunch {
             val data = repository.getHomeRecommendList(1)
             data?.let {
@@ -50,7 +50,7 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ViceResult>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, HomeRecommendItemListBean>) {
         safeLaunch {
             val data = repository.getHomeRecommendList(params.key)
             if(!data.isNullOrEmpty()){
@@ -68,7 +68,7 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
         }
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, ViceResult>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, HomeRecommendItemListBean>) {
 
     }
 
@@ -80,7 +80,7 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
 }
 
 class RecommendDataSourceFactory(private val repository: RecommendRepository) :
-    DataSource.Factory<Int, ViceResult>() {
-    override fun create(): DataSource<Int, ViceResult> = RecommendDataSource(repository)
+    DataSource.Factory<Int, HomeRecommendItemListBean>() {
+    override fun create(): DataSource<Int, HomeRecommendItemListBean> = RecommendDataSource(repository)
 }
 
