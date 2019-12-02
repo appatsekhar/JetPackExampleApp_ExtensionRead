@@ -64,6 +64,7 @@ class RecommendAdapter : PagedListAdapter<HomeRecommendItemListBean, RecyclerVie
 
         private const val ITEM_TYPE_HEADER = 99
         private const val ITEM_TYPE_FOOTER = 100
+
     }
 }
 
@@ -74,12 +75,14 @@ class RecommendViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
     fun bindTo(data: HomeRecommendItemListBean?) {
         mBinding = initViewBindingImpl(itemView) as ViewListItemRecommendBinding
-        if(data?.type == "textCard"){
-            mBinding.rlRecommendLayout.layoutParams.height = 0
-        }else{
-            mBinding.rlRecommendLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        mBinding.groupTitleText.visibility = View.GONE
+        mBinding.rlThemeIcon.visibility = View.GONE
+        mBinding.llThemeLayout.visibility = View.GONE
+        when {
+            data?.type == "textCard" -> mBinding.groupTitleText.visibility = View.VISIBLE
+            data?.type == "followCard" -> mBinding.rlThemeIcon.visibility = View.VISIBLE
+            else -> mBinding.llThemeLayout.visibility = View.VISIBLE
         }
-        //TODO 数据核对
         mBinding.item = data
     }
 
