@@ -50,7 +50,7 @@ class CommunityContentAdapter : PagedListAdapter<OpenEyeResult, RecyclerView.Vie
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HeaderViewHolder -> holder.bindsHeader(currentList?.get(0))
+            is HeaderViewHolder -> if(!currentList.isNullOrEmpty()) holder.bindsHeader(currentList!![0])
             is FooterViewHolder -> holder.bindsFooter(isLoadMore)
             is CommunityViewHolder -> holder.bindTo(getDataItem(position))
         }
@@ -89,7 +89,7 @@ class CommunityViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     fun bindTo(item: OpenEyeResult?) {
         mBinding = initViewBindingImpl(itemView) as ViewListItemCommunityBinding
         if (item != null) {
-            mBinding.item = item.data.content.data
+            mBinding.item = item
         }
     }
 
@@ -103,9 +103,9 @@ internal class HeaderViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     fun bindsHeader(item: OpenEyeResult?) {
         mHeaderBinding = initViewBindingImpl(itemView) as ViewListItemHeaderBinding
         mHeaderBinding.headerText.visibility = View.GONE
-        if (item != null && item.data.header.title.isNotEmpty()) {
+        if (item != null && item.data.content.data.tags.isNotEmpty()) {
             mHeaderBinding.headerText.visibility = View.VISIBLE
-            mHeaderBinding.headerText.text = item.data.header.title
+            mHeaderBinding.headerText.text = item.data.content.data.tags[0].name
         }
     }
 

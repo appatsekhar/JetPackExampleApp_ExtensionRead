@@ -81,7 +81,7 @@ class RecommendViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         when {
             data?.type == "textCard" -> mBinding.groupTitleText.visibility = View.VISIBLE
             data?.type == "followCard" -> mBinding.rlThemeIcon.visibility = View.VISIBLE
-            else -> mBinding.llThemeLayout.visibility = View.VISIBLE
+            data?.type == "videoSmallCard" -> mBinding.llThemeLayout.visibility = View.VISIBLE
         }
         mBinding.item = data
     }

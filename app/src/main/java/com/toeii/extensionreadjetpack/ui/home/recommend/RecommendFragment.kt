@@ -14,8 +14,8 @@ import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.databinding.*
 import com.toeii.extensionreadjetpack.entity.EventMessage
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.entity.HomeRecommendItemListBean
+import com.toeii.extensionreadjetpack.R
 
 
 class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
@@ -76,9 +76,12 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
 
         CoroutineBus.register(this.javaClass.simpleName, UI, EventMessage::class.java) {
             when {
-                it.tag == ERAppConfig.HOME_RECOMMEND_PAGE_DATA_INIT ->  mBinding.emptyView.show(false)
-                it.tag == ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_START -> mRecommendAdapter.isLoadMore = 1
-                it.tag == ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_END ->  mRecommendAdapter.isLoadMore = -1
+                it.tag == RecommendFragment::class.java.name + ERAppConfig.PAGE_DATA_INIT ->
+                    mBinding.emptyView.show(false)
+                it.tag == RecommendFragment::class.java.name + ERAppConfig.PAGE_DATA_LOAD_START ->
+                    mRecommendAdapter.isLoadMore = 1
+                it.tag == RecommendFragment::class.java.name + ERAppConfig.PAGE_DATA_LOAD_END ->
+                    mRecommendAdapter.isLoadMore = -1
             }
             mRecommendAdapter.notifyDataSetChanged()
         }

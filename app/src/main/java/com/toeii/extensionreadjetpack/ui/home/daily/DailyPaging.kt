@@ -27,13 +27,23 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
             val result = repository.getHomeDailyList(1)
             result?.let {
                 callback.onResult(it,1,2)
-                CoroutineBus.post(EventMessage(ERAppConfig.HOME_DAILY_PAGE_DATA_INIT,null))
+                CoroutineBus.post(
+                    EventMessage(
+                        DailyFragment::class.java.name
+                                + ERAppConfig.PAGE_DATA_INIT,
+                        null)
+                )
             }
         }
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, HomeDailyItemListBean>) {
-
+        CoroutineBus.post(
+            EventMessage(
+                DailyFragment::class.java.name
+                        + ERAppConfig.PAGE_DATA_LOAD_END,
+                null)
+        )
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, HomeDailyItemListBean>) {

@@ -45,7 +45,12 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
             val data = repository.getHomeRecommendList(1)
             data?.let {
                 callback.onResult(it, 1,2)
-                CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_INIT,null))
+                CoroutineBus.post(
+                    EventMessage(
+                        RecommendFragment::class.java.name
+                                + ERAppConfig.PAGE_DATA_INIT,
+                        null)
+                )
             }
         }
     }
@@ -53,17 +58,28 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, HomeRecommendItemListBean>) {
         safeLaunch {
             val data = repository.getHomeRecommendList(params.key)
+            var isLoadStart = false
             if(!data.isNullOrEmpty()){
+                if(data.size > ERAppConfig.PAGE_SIZE){
+                    CoroutineBus.post(
+                        EventMessage(
+                            RecommendFragment::class.java.name
+                                    + ERAppConfig.PAGE_DATA_LOAD_START,
+                            null)
+                    )
+                    isLoadStart = true
+                }
                 data.let {
                     callback.onResult(it, params.key + 1)
                 }
-                if(data.size < ERAppConfig.PAGE_SIZE){
-                    CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_END,null))
-                }else{
-                    CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_START,null))
-                }
-            }else{
-                CoroutineBus.post(EventMessage(ERAppConfig.HOME_RECOMMEND_PAGE_DATA_LOAD_END,null))
+            }
+            if(!isLoadStart){
+                CoroutineBus.post(
+                    EventMessage(
+                        RecommendFragment::class.java.name
+                                + ERAppConfig.PAGE_DATA_LOAD_END,
+                        null)
+                )
             }
         }
     }

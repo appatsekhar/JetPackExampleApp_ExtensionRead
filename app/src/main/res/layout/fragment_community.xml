@@ -13,6 +13,13 @@
         android:layout_height="match_parent"
        >
 
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/qmui_config_color_white"
+                android:fitsSystemWindows="true"/>
+
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -25,7 +32,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_coordinator"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                >
 
                 </androidx.recyclerview.widget.RecyclerView>
             </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
@@ -39,7 +48,8 @@
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView_header"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_105">
+                    android:layout_height="@dimen/space_105"
+            >
 
             </androidx.recyclerview.widget.RecyclerView>
 

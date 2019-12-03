@@ -60,8 +60,14 @@ class DailyFragment : BaseFragment<FragmentDailyBinding>(){
 
         CoroutineBus.register(this.javaClass.simpleName, UI, EventMessage::class.java) {
             when {
-                it.tag == ERAppConfig.HOME_DAILY_PAGE_DATA_INIT ->  mBinding.emptyView.show(false)
+                it.tag == DailyFragment::class.java.name + ERAppConfig.PAGE_DATA_INIT ->
+                    mBinding.emptyView.show(false)
+                it.tag == DailyFragment::class.java.name + ERAppConfig.PAGE_DATA_LOAD_START ->
+                    mDailyAdapter.isLoadMore = 1
+                it.tag == DailyFragment::class.java.name + ERAppConfig.PAGE_DATA_LOAD_END ->
+                    mDailyAdapter.isLoadMore = -1
             }
+            mDailyAdapter.notifyDataSetChanged()
         }
 
     }

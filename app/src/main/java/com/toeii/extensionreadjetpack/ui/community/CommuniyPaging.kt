@@ -1,14 +1,17 @@
 package com.toeii.extensionreadjetpack.ui.community
 
 
+import android.util.Log
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
+import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.common.CoroutineBus
 import com.toeii.extensionreadjetpack.common.safeLaunch
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.entity.*
 import com.toeii.extensionreadjetpack.network.RetrofitManager
 import kotlinx.coroutines.*
+import org.jetbrains.anko.debug
 
 class CommunityRepository{
 
@@ -32,7 +35,12 @@ class  CommunityDataSource(private val repository: CommunityRepository,private v
             val result = repository.getCommunityContentList(key,0)
             result?.let {
                 callback.onResult(it,0,1)
-                CoroutineBus.post(EventMessage(ERAppConfig.HOME_DAILY_PAGE_DATA_INIT,null))
+                CoroutineBus.post(
+                    EventMessage(
+                        CommunityFragment::class.java.name
+                                + ERAppConfig.PAGE_DATA_INIT,
+                        null)
+                )
             }
         }
     }
@@ -40,8 +48,28 @@ class  CommunityDataSource(private val repository: CommunityRepository,private v
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, OpenEyeResult>) {
         safeLaunch{
             val result = repository.getCommunityContentList(key,params.key)
-            result?.let {
-                callback.onResult(it,params.key + 1)
+            var isLoadStart = false
+            if(!result.isNullOrEmpty() && params.key < 2){//只展示一页
+                if(result.size > ERAppConfig.PAGE_SIZE){
+                    CoroutineBus.post(
+                        EventMessage(
+                            CommunityFragment::class.java.name
+                                    + ERAppConfig.PAGE_DATA_LOAD_START,
+                            null)
+                    )
+                    isLoadStart = true
+                }
+                result.let {
+                    callback.onResult(it, params.key + 1)
+                }
+            }
+            if(!isLoadStart){
+                CoroutineBus.post(
+                    EventMessage(
+                        CommunityFragment::class.java.name
+                                + ERAppConfig.PAGE_DATA_LOAD_END,
+                        null)
+                )
             }
         }
     }

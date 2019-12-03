@@ -22,8 +22,8 @@ interface ApiService {
     suspend fun getCommunityItemList(): CommunityItemEntity
 
     // 社区分类下内容
-    @GET("/api/v6/tag/dynamics?id={id}&start={start}&num={page}")
-    suspend fun getCommunityContentList(@Path("id") id: String,@Path("start") start: Int,@Path("page") page: Int): CommunityEntity
+    @GET("/api/v6/tag/dynamics")
+    suspend fun getCommunityContentList(@Query("id") id: String,@Query("start") start: Int,@Query("page") page: Int): CommunityEntity
 
 
 
