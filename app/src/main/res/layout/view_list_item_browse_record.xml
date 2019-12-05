@@ -1,57 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+<layout>
+
+    <data>
+
+        <variable name="item"
+                  type="com.toeii.extensionreadjetpack.entity.BrowseRecordEntity"/>
+
+    </data>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+    >
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:id="@+id/icon"
+                android:layout_width="@dimen/space_100"
+                android:layout_height="@dimen/space_70"
+                app:qmui_border_color="@android:color/white"
+                app:qmui_corner_radius="@dimen/space_6"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+                app:imageUrl="@{item.image}"
+        />
+
+
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_16"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/icon"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="@{item.title}"
+        />
 
->
+        <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/qmui_config_color_gray_3"
+                android:textSize="@dimen/text_size_14"
+                android:layout_below="@id/title"
+                android:layout_toRightOf="@id/icon"
+                android:layout_marginLeft="@dimen/space_8"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:text="@{item.content}"
+        />
 
-    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-            android:id="@+id/icon"
-            android:layout_width="@dimen/space_100"
-            android:layout_height="@dimen/space_70"
-            android:src="@mipmap/logo_extension_read"
-            app:qmui_border_color="@android:color/white"
-            app:qmui_corner_radius="@dimen/space_6"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
-    />
-
-
-    <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Theme Title"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_20"
-            android:singleLine="true"
-            android:layout_toRightOf="@id/icon"
-            android:layout_marginLeft="@dimen/space_8"
-            android:layout_marginTop="@dimen/space_10"
-    />
-
-    <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Theme Sub TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitle"
-            android:textColor="@color/qmui_config_color_gray_3"
-            android:textSize="@dimen/text_size_15"
-            android:layout_below="@id/title"
-            android:layout_toRightOf="@id/icon"
-            android:layout_marginLeft="@dimen/space_8"
-            android:maxLines="2"
-            android:ellipsize="end"
-    />
-
-    <View android:layout_width="match_parent"
-          android:layout_height="1px"
-          android:background="@color/qmui_config_color_gray_9"
-          android:layout_marginTop="@dimen/space_10"
-          android:layout_below="@id/icon"/>
+        <View android:layout_width="match_parent"
+              android:layout_height="0px"
+              android:background="@color/qmui_config_color_gray_9"
+              android:layout_marginTop="@dimen/space_10"
+              android:layout_below="@id/icon"
+              android:visibility="invisible"
+        />
 
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</layout>

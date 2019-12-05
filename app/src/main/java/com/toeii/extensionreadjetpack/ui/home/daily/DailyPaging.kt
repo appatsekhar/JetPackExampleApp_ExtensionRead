@@ -14,7 +14,10 @@ class DailyRepository{
 
     suspend fun getHomeDailyList(page: Int): List<HomeDailyItemListBean>? = withContext(Dispatchers.IO){
         val result = RetrofitManager.apiService.getHomeDailyList(System.currentTimeMillis().toString()).itemList
-        result
+        val filterData = result.filter {
+            it.type == "followCard"
+        }
+        filterData
     }
 
 }

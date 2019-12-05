@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BasePagedListAdapterObserver
+import com.toeii.extensionreadjetpack.common.db.BrowseRecordBean
 import com.toeii.extensionreadjetpack.databinding.ViewListItemCommunityBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemCommunitySortBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemFooterBinding
@@ -90,6 +92,21 @@ class CommunityViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         mBinding = initViewBindingImpl(itemView) as ViewListItemCommunityBinding
         if (item != null) {
             mBinding.item = item
+        }
+        mBinding.root.setOnClickListener {
+
+//            @ColumnInfo(name = "point_id") val pointId: String,
+//            @ColumnInfo(name = "title") val title: String,
+//            @ColumnInfo(name = "content") val content: String,
+//            @ColumnInfo(name = "url") val url: String,
+//            @ColumnInfo(name = "image") val image: String
+
+//            //TODO db
+//            val data = BrowseRecordBean(
+//                item.id,item.data.header.id,item.data.header.issuerName,item.data.content.data.description,item.data.content.data.we,item.data.content.data.cover.feed
+//            )
+//
+//            ERApplication.db.browseRecordDao().insert(data)
         }
     }
 

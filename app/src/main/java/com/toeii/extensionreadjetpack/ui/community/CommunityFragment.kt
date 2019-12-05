@@ -28,6 +28,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(){
 
     private val mCommunityItemAdapter: CommunityItemAdapter by lazy { CommunityItemAdapter() }
     private val mCommunityContentAdapter: CommunityContentAdapter by lazy { CommunityContentAdapter() }
+    var index : Int = 0
 
     private val mViewModel: CommunityViewModel by lazy(LazyThreadSafetyMode.NONE)  {
         ViewModelProviders.of(this,CommunityModelFactory(CommunityRepository()))[CommunityViewModel::class.java]
@@ -58,7 +59,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(){
         mViewModel.itemResult.observe(this, Observer<List<OpenEyeItemResult>>{
             mCommunityItemAdapter.setNewData(it)
             if(!it.isNullOrEmpty()){
-                mViewModel.fetchResult(it[0].data.tagId.toString())
+                mViewModel.fetchResult(it[index].data.tagId.toString())
                 mViewModel.result?.observe(this, Observer<PagedList<OpenEyeResult>>{ newIt ->
                     mCommunityContentAdapter.submitList(newIt)
                 })
@@ -77,6 +78,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(){
             }
 
             override fun onRefresh() {
+                mCommunityContentAdapter.isLoadMore = 1
                 initData()
                 mBinding.pullToRefresh.postDelayed( { mBinding.pullToRefresh.finishRefresh() }, 500)
             }
@@ -96,7 +98,8 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(){
 
         mCommunityItemAdapter.setOnItemClickListener { adapter, view, position ->
             if(null != adapter.data[position]){
-                mBinding.emptyView.show(true)
+                index = position
+                mCommunityContentAdapter.isLoadMore = 1
                 val itemBean = adapter.data[position] as OpenEyeItemResult
                 mViewModel.fetchResult(itemBean.data.tagId.toString())
                 mViewModel.result?.observe(this, Observer<PagedList<OpenEyeResult>>{
@@ -104,7 +107,6 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(){
                 })
             }
         }
-
 
     }
 

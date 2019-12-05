@@ -10,7 +10,7 @@ import androidx.room.*
 @Dao
 interface BrowseRecordDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(browseRecord : BrowseRecordBean)
 
     @Insert
@@ -19,19 +19,19 @@ interface BrowseRecordDao {
     @Delete
     fun delete(browseRecord : BrowseRecordBean)
 
-    @Delete
+    @Query("DELETE FROM browserecordbean")
     fun deleteAll()
 
-    @Delete
+    @Query("DELETE FROM browserecordbean WHERE point_id IN (:point_id)")
     fun deleteById(point_id : Int)
 
     @Update
     fun updateBrowseRecord(browseRecord : BrowseRecordBean)
 
-    @Query("SELECT * FROM browseRecord")
+    @Query("SELECT * FROM browserecordbean order by uid desc")
     fun getAll(): List<BrowseRecordBean>
 
-    @Query("SELECT * FROM browseRecord WHERE point_id IN (:point_id)")
+    @Query("SELECT * FROM browserecordbean WHERE point_id IN (:point_id) order by uid desc")
     fun getAllById(point_id: Int): List<BrowseRecordBean>
 
 }

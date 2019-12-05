@@ -12,6 +12,16 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
+            }
+        }
+
     }
 
     buildTypes {
@@ -34,7 +44,7 @@ dependencies {
     //TODO 迁至外部gradle
     def lifecycle_version = '2.2.0-alpha02'
     def paging_version = '2.1.0-alpha01'
-    def room_version = '2.1.0'
+    def room_version = '2.2.0-rc01'
     def work_version = '2.1.0'
     def navigation_version = '2.2.0-alpha01'
     def anko_version = '0.10.8'
@@ -61,7 +71,9 @@ dependencies {
     implementation "android.arch.paging:runtime:$paging_version"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     // room
+    kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
     // work
     implementation "androidx.work:work-runtime:$work_version"
     implementation "androidx.work:work-runtime-ktx:$work_version"

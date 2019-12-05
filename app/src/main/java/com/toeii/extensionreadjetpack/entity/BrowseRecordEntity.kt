@@ -2,7 +2,7 @@ package com.toeii.extensionreadjetpack.entity
 
 data class BrowseRecordEntity(
 
-    val id: Int,
+    val id: Long,
     val pointId: String,
     val title: String,
     val content: String,

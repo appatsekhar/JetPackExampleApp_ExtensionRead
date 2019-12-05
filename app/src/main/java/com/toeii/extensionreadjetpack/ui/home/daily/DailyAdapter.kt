@@ -3,17 +3,20 @@ package com.toeii.extensionreadjetpack.ui.home.daily
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.ColumnInfo
 import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BasePagedListAdapterObserver
 import com.toeii.extensionreadjetpack.common.db.BrowseRecordBean
 import com.toeii.extensionreadjetpack.databinding.*
 import com.toeii.extensionreadjetpack.entity.HomeDailyItemListBean
+import org.jetbrains.anko.doAsync
 
 class DailyAdapter : PagedListAdapter<HomeDailyItemListBean, RecyclerView.ViewHolder>(diffCallback) {
 
@@ -79,31 +82,25 @@ class DailyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         }else{
             mBinding.rlDailyLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             data.data.header.iconType = "发布："
-            if(data.data.content.data.dataType == "VideoBeanForClient"){
-                data.data.header.issuerName = data.data.content.data.author.name
-                data.data.header.icon = data.data.content.data.author.icon
-                data.data.header.iconType = data.data.content.data.author.description
-            }else if(data.data.content.data.dataType == "UgcPictureBean"){
-                data.data.header.issuerName = data.data.content.data.owner.nickname
-                data.data.header.icon = data.data.content.data.owner.cover.toString()
-                data.data.header.iconType = data.data.content.data.owner.description
-            }
+            data.data.header.issuerName = data.data.content.data.author.name
+            data.data.header.icon = data.data.content.data.author.icon
+            data.data.header.iconType = data.data.content.data.author.description
         }
         mBinding.item = data
 
         mBinding.rlDailyLayout.setOnClickListener {
 
-//            @ColumnInfo(name = "point_id") val pointId: String,
-//            @ColumnInfo(name = "title") val title: String,
-//            @ColumnInfo(name = "content") val content: String,
-//            @ColumnInfo(name = "url") val url: String,
-//            @ColumnInfo(name = "image") val image: String
+            //TODO skip
+            Toast.makeText(itemView.context, "index--->$layoutPosition \n 访问地址--->${data.data.content.data.webUrl.raw}", Toast.LENGTH_SHORT).show()
 
-            //TODO db
-//            val data = BrowseRecordBean(
-//
-//            )
-//            ERApplication.db.browseRecordDao().insert(data)
+            val browseRecordBean = BrowseRecordBean(
+                data.id.toString(),
+                data.data.content.data.title, data.data.content.data.description,
+                data.data.content.data.webUrl.raw, data.data.content.data.cover.feed
+            )
+            doAsync {
+                ERApplication.db.browseRecordDao().insert(browseRecordBean)
+            }
         }
 
     }

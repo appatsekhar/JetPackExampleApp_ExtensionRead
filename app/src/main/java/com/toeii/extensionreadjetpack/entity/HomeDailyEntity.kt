@@ -68,6 +68,7 @@ data class HomeDailyContentDataBean(val dataType: String,
                     var privateMessageActionUrl: Any?,
                     val url: String,
                     val urls: List<String>,
+                    val webUrl: HomeDailyWebUrlBean,
                     val status: String,
                     val releaseTime: Long,
                     val urlsWithWatermark: List<String>)
@@ -88,6 +89,9 @@ data class HomeDailyTagsBean(val id: Int,
 data class HomeDailyConsumptionBean(val collectionCount: Int,
                            val shareCount: Int,
                            val replyCount: Int)
+
+data class HomeDailyWebUrlBean(val raw: String,
+                           val forWeibo: String)
 
 data class HomeDailyOwnerBean(val uid: Int,
                      val nickname: String,
