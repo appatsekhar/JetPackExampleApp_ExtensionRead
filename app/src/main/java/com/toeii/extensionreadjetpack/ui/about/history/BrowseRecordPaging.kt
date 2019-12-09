@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.ui.nav
+package com.toeii.extensionreadjetpack.ui.about.history
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.toeii.extensionreadjetpack.ERApplication
@@ -52,6 +52,7 @@ class BrowseRecordDataSource(private val repository: BrowseRecordRepository) :Pa
 
 class BrowseRecordSourceFactory(private val repository: BrowseRecordRepository) :
     DataSource.Factory<Int, BrowseRecordEntity>() {
-    override fun create(): DataSource<Int, BrowseRecordEntity> = BrowseRecordDataSource(repository)
+    override fun create(): DataSource<Int, BrowseRecordEntity> =
+        BrowseRecordDataSource(repository)
 }
 

@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.ui.nav
+package com.toeii.extensionreadjetpack.ui.about.history
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -20,7 +20,9 @@ class BrowseRecordViewModel(private val repository: BrowseRecordRepository) : Vi
 class BrowseRecordModelFactory(private val repository: BrowseRecordRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = BrowseRecordViewModel(repository) as T
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = BrowseRecordViewModel(
+        repository
+    ) as T
 
 }
 

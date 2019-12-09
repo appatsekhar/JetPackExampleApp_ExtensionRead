@@ -2,11 +2,6 @@ package com.toeii.extensionreadjetpack.common.db
 
 import androidx.room.*
 
-/**
- * @author Toeii
- * @create 2019/12/3
- * @Describe
- */
 @Dao
 interface BrowseRecordDao {
 
@@ -28,7 +23,7 @@ interface BrowseRecordDao {
     @Update
     fun updateBrowseRecord(browseRecord : BrowseRecordBean)
 
-    @Query("SELECT * FROM browserecordbean order by uid desc")
+    @Query("SELECT * FROM browserecordbean GROUP BY url order by uid desc")
     fun getAll(): List<BrowseRecordBean>
 
     @Query("SELECT * FROM browserecordbean WHERE point_id IN (:point_id) order by uid desc")

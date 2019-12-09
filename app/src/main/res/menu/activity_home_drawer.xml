@@ -24,11 +24,6 @@
                 android:icon="@mipmap/icon_tabbar_about"
                 android:title="关于作者"/>
 
-        <item
-                android:id="@+id/nav_clean_rom"
-                android:icon="@mipmap/icon_clean_rom"
-                android:title="清除缓存"/>
-
     </group>
 
 

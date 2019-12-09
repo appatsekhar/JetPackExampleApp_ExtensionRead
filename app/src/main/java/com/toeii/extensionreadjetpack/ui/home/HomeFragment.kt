@@ -16,7 +16,7 @@ import com.toeii.extensionreadjetpack.base.BaseFragment
 import com.toeii.extensionreadjetpack.databinding.FragmentHomeBinding
 import com.toeii.extensionreadjetpack.ui.home.daily.DailyFragment
 import com.toeii.extensionreadjetpack.ui.home.recommend.RecommendFragment
-import com.toeii.extensionreadjetpack.ui.nav.BrowseRecordFragment
+import com.toeii.extensionreadjetpack.ui.about.history.BrowseRecordFragment
 import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
@@ -96,9 +96,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), NavigationView.OnNavig
             }
             R.id.nav_about_author -> {
                 toast("nav_about_author")
-            }
-            R.id.nav_clean_rom -> {
-                toast("nav_clean_rom")
             }
         }
         return true

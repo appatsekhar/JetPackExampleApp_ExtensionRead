@@ -12,15 +12,22 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.ColumnInfo
 import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.R
+import com.toeii.extensionreadjetpack.base.BaseFragment
 import com.toeii.extensionreadjetpack.base.BasePagedListAdapterObserver
 import com.toeii.extensionreadjetpack.common.db.BrowseRecordBean
 import com.toeii.extensionreadjetpack.databinding.*
 import com.toeii.extensionreadjetpack.entity.HomeDailyItemListBean
+import com.toeii.extensionreadjetpack.interfaces.OnItemClickListener
 import org.jetbrains.anko.doAsync
 
 class DailyAdapter : PagedListAdapter<HomeDailyItemListBean, RecyclerView.ViewHolder>(diffCallback) {
 
     internal var isLoadMore = 0
+    private lateinit var itemListener: OnItemClickListener
+
+    fun setOnItemListener(listener: OnItemClickListener) {
+        this.itemListener = listener
+    }
 
     override fun getItemViewType(position: Int): Int =
         when (position) {
@@ -40,7 +47,7 @@ class DailyAdapter : PagedListAdapter<HomeDailyItemListBean, RecyclerView.ViewHo
         when (holder) {
             is HeaderViewHolder -> if(!currentList.isNullOrEmpty()) holder.bindsHeader(currentList!![0])
             is FooterViewHolder -> holder.bindsFooter(isLoadMore)
-            is DailyViewHolder -> getDataItem(position)?.let { holder.bindTo(it) }
+            is DailyViewHolder -> getDataItem(position)?.let { holder.bindTo(it,itemListener) }
         }
     }
 
@@ -73,7 +80,7 @@ class DailyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
     private lateinit var mBinding : ViewListItemDailyBinding
 
-    fun bindTo(data: HomeDailyItemListBean) {
+    fun bindTo(data: HomeDailyItemListBean,listener: OnItemClickListener) {
 
         mBinding = initViewBindingImpl(itemView) as ViewListItemDailyBinding
 
@@ -89,18 +96,7 @@ class DailyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         mBinding.item = data
 
         mBinding.rlDailyLayout.setOnClickListener {
-
-            //TODO skip
-            Toast.makeText(itemView.context, "index--->$layoutPosition \n 访问地址--->${data.data.content.data.webUrl.raw}", Toast.LENGTH_SHORT).show()
-
-            val browseRecordBean = BrowseRecordBean(
-                data.id.toString(),
-                data.data.content.data.title, data.data.content.data.description,
-                data.data.content.data.webUrl.raw, data.data.content.data.cover.feed
-            )
-            doAsync {
-                ERApplication.db.browseRecordDao().insert(browseRecordBean)
-            }
+            listener.onItemClick(layoutPosition,it)
         }
 
     }

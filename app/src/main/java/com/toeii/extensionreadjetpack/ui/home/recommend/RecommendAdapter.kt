@@ -10,21 +10,29 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.stx.xhb.androidx.XBanner
-import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BasePagedListAdapterObserver
-import com.toeii.extensionreadjetpack.common.db.BrowseRecordBean
 import com.toeii.extensionreadjetpack.databinding.ViewListHeaderRecommendBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemFooterBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemRecommendBinding
 import com.toeii.extensionreadjetpack.databinding.ViewVpItemRecommendBinding
 import com.toeii.extensionreadjetpack.entity.HomeRecommendItemListBean
 import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
-import org.jetbrains.anko.doAsync
+import com.toeii.extensionreadjetpack.interfaces.OnItemClickListener
 
 class RecommendAdapter : PagedListAdapter<HomeRecommendItemListBean, RecyclerView.ViewHolder>(diffCallback) {
 
     internal var isLoadMore = 0
+    private lateinit var itemListener: OnItemClickListener
+    private lateinit var itemBannerListener: OnItemClickListener
+
+    fun setOnItemListener(listener: OnItemClickListener) {
+        this.itemListener = listener
+    }
+
+    fun setOnBannerItemListener(listener: OnItemClickListener) {
+        this.itemBannerListener = listener
+    }
 
     override fun getItemViewType(position: Int): Int =
         when (position) {
@@ -42,9 +50,9 @@ class RecommendAdapter : PagedListAdapter<HomeRecommendItemListBean, RecyclerVie
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HeaderViewHolder -> if(!currentList.isNullOrEmpty()) holder.bindsHeader(currentList!![0])
+            is HeaderViewHolder -> if(!currentList.isNullOrEmpty()) holder.bindsHeader(currentList!![0],itemBannerListener)
             is FooterViewHolder -> holder.bindsFooter(isLoadMore)
-            is RecommendViewHolder -> holder.bindTo(getDataItem(position)!!)
+            is RecommendViewHolder -> holder.bindTo(getDataItem(position)!!,itemListener)
         }
     }
 
@@ -77,7 +85,7 @@ class RecommendViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
     private lateinit var mBinding : ViewListItemRecommendBinding
 
-    fun bindTo(data: HomeRecommendItemListBean) {
+    fun bindTo(data: HomeRecommendItemListBean,listener: OnItemClickListener) {
         mBinding = initViewBindingImpl(itemView) as ViewListItemRecommendBinding
         mBinding.groupTitleText.visibility = View.GONE
         mBinding.rlThemeIcon.visibility = View.GONE
@@ -90,29 +98,7 @@ class RecommendViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         mBinding.item = data
 
         mBinding.root.setOnClickListener {
-
-            //TODO skip
-
-            val browseRecordBean: BrowseRecordBean = when {
-                data.type == "videoSmallCard" -> {
-                    Toast.makeText(itemView.context, "index--->$layoutPosition \n 访问地址--->${data.data.webUrl.raw}",Toast.LENGTH_SHORT).show()
-                    BrowseRecordBean(
-                        data.id.toString(),
-                        data.data.title, data.data.description,
-                        data.data.webUrl.raw, data.data.cover.feed
-                    )
-                }else -> {
-                    Toast.makeText(itemView.context, "index--->$layoutPosition \n 访问地址--->${data.data.content.data.webUrl.raw}",Toast.LENGTH_SHORT).show()
-                    BrowseRecordBean(
-                        data.id.toString(),
-                        data.data.content.data.title, data.data.content.data.description,
-                        data.data.content.data.webUrl.raw, data.data.content.data.cover.feed
-                    )
-                }
-            }
-            doAsync {
-                ERApplication.db.browseRecordDao().insert(browseRecordBean)
-            }
+            listener.onItemClick(layoutPosition,it)
         }
     }
 
@@ -125,26 +111,14 @@ internal class HeaderViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     private lateinit var mVpBinding : ViewVpItemRecommendBinding
     private val mHeadViewAdapter: XBanner.XBannerAdapter by lazy { getHeadPagerAdapter() }
 
-    fun bindsHeader(viceResult: HomeRecommendItemListBean?) {
+    fun bindsHeader(viceResult: HomeRecommendItemListBean?,listener: OnItemClickListener) {
         mHeaderBinding = initViewBindingImpl(itemView) as ViewListHeaderRecommendBinding
         if (viceResult != null) {
             mHeaderBinding.itemPager.setBannerData(R.layout.view_vp_item_recommend,viceResult.bannerData)
             mHeaderBinding.itemPager.loadImage(mHeadViewAdapter)
             mHeaderBinding.itemTitleText.text = mHeaderBinding.root.resources.getString(R.string.str_home_recommend_wonderful)
             mHeaderBinding.itemPager.setOnItemClickListener { banner, model, view, position ->
-                //TODO skip
-                val data = viceResult.bannerData[position]
-                Toast.makeText(itemView.context, "index--->$position \n 访问地址--->${data.data.webUrl.raw}", Toast.LENGTH_SHORT).show()
-
-                val browseRecordBean = BrowseRecordBean(
-                    data.id.toString(),
-                    data.data.title, data.data.description,
-                    data.data.webUrl.raw, data.data.cover.feed
-                )
-                doAsync {
-                    ERApplication.db.browseRecordDao().insert(browseRecordBean)
-                }
-
+                listener.onItemClick(position,view)
             }
         }
     }

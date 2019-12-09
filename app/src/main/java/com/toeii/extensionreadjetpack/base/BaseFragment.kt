@@ -16,12 +16,15 @@
 
 package com.toeii.extensionreadjetpack.base
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.qmuiteam.qmui.arch.QMUIFragment
+import com.toeii.extensionreadjetpack.config.ERAppConfig
+import com.toeii.extensionreadjetpack.ui.about.web.WebFragment
 import org.jetbrains.anko.contentView
 
 abstract class BaseFragment<VB : ViewDataBinding>  : QMUIFragment(){
@@ -42,5 +45,14 @@ abstract class BaseFragment<VB : ViewDataBinding>  : QMUIFragment(){
     abstract fun initView(view : View)
     abstract fun initData()
     abstract fun initListener()
+
+    internal fun openWebView(title: String, url: String) {
+        val webFragment = WebFragment()
+        val bundle = Bundle()
+        bundle.putString(ERAppConfig.WEB_EXTRA_TITLE, title)
+        bundle.putString(ERAppConfig.WEB_EXTRA_URL, url)
+        webFragment.arguments = bundle
+        startFragment(webFragment)
+    }
 
 }

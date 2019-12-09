@@ -8,7 +8,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
 import com.toeii.extensionreadjetpack.databinding.FragmentAboutBinding
-import com.toeii.extensionreadjetpack.ui.nav.BrowseRecordFragment
+import com.toeii.extensionreadjetpack.ui.about.history.BrowseRecordFragment
 import org.jetbrains.anko.support.v4.toast
 import java.util.ArrayList
 
@@ -19,13 +19,12 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(){
     private val mDatas = ArrayList<String>()
 
     init {
-        for(position in 0..4){
+        for(position in 0..3){
             val str = when (position) {
                 0 -> "项目主页"
                 1 -> "浏览记录"
                 2 -> "切换主题"
                 3 -> "关于作者"
-                4 -> "清除缓存"
                 else -> null
             }
             if(null != str){
@@ -63,9 +62,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(){
                 }
                 3 -> {
                     toast("nav_about_author")
-                }
-                4 -> {
-                    toast("nav_clean_rom")
                 }
             }
         }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+
+    <data>
+
+    </data>
+
+
+    <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+
+        <View android:layout_width="match_parent"
+              android:layout_height="@dimen/space_20"
+              android:background="@color/app_color"
+        />
+
+        <com.qmuiteam.qmui.widget.QMUITopBarLayout
+                android:id="@+id/topbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                app:qmui_topbar_bg_color="@color/app_color"
+                app:qmui_topbar_title_color="@android:color/white"
+                android:layout_marginTop="@dimen/space_20"
+                android:fitsSystemWindows="true">
+            <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="2dp"
+                    android:minHeight="2dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/app_color"
+                    android:progressDrawable="@drawable/web_explorer_progress"/>
+        </com.qmuiteam.qmui.widget.QMUITopBarLayout>
+
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:layout_marginTop="@dimen/space_68"
+        >
+            <com.qmuiteam.qmui.widget.webview.QMUIWebViewContainer
+                    android:id="@+id/webview_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+            </com.qmuiteam.qmui.widget.webview.QMUIWebViewContainer>
+        </FrameLayout>
+
+    </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+
+
+</layout>

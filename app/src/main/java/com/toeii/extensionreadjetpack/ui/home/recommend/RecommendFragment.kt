@@ -14,8 +14,12 @@ import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.databinding.*
 import com.toeii.extensionreadjetpack.entity.EventMessage
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.entity.HomeRecommendItemListBean
 import com.toeii.extensionreadjetpack.R
+import com.toeii.extensionreadjetpack.common.db.BrowseRecordBean
+import com.toeii.extensionreadjetpack.interfaces.OnItemClickListener
+import org.jetbrains.anko.doAsync
 
 
 class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
@@ -63,6 +67,55 @@ class RecommendFragment: BaseFragment<FragmentRecommendBinding>() {
     }
 
     override fun initListener() {
+
+        mRecommendAdapter.setOnItemListener(OnItemClickListener { position, view ->
+            val webTitle :String
+            val webUrl :String
+            val data = mRecommendAdapter.currentList!![(position-1)]
+            if (data != null) {
+                val browseRecordBean: BrowseRecordBean = when {
+                    data.type == "videoSmallCard" -> {
+                        webTitle = data.data.title
+                        webUrl = data.data.webUrl.raw
+                        BrowseRecordBean(
+                            data.id.toString(),
+                            data.data.title, data.data.description,
+                            data.data.webUrl.raw, data.data.cover.feed
+                        )
+                    }else -> {
+                        webTitle = data.data.content.data.title
+                        webUrl = data.data.content.data.webUrl.raw
+                        BrowseRecordBean(
+                            data.id.toString(),
+                            data.data.content.data.title, data.data.content.data.description,
+                            data.data.content.data.webUrl.raw, data.data.content.data.cover.feed
+                        )
+                    }
+                }
+
+                openWebView(webTitle,webUrl)
+
+                doAsync {
+                    ERApplication.db.browseRecordDao().insert(browseRecordBean)
+                }
+            }
+
+        })
+
+        mRecommendAdapter.setOnBannerItemListener(OnItemClickListener { position, view ->
+            val data = mRecommendAdapter.currentList!![0]!!.bannerData[position]
+            openWebView(data.data.title,data.data.webUrl.raw)
+
+            val browseRecordBean = BrowseRecordBean(
+                data.id.toString(),
+                data.data.title, data.data.description,
+                data.data.webUrl.raw, data.data.cover.feed
+            )
+            doAsync {
+                ERApplication.db.browseRecordDao().insert(browseRecordBean)
+            }
+        })
+
         mBinding.pullToRefresh.setOnPullListener(object : QMUIPullRefreshLayout.OnPullListener {
             override fun onMoveTarget(offset: Int) {}
 

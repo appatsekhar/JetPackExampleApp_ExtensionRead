@@ -17,6 +17,12 @@ class ERAppConfig {
         const val PAGE_DATA_LOAD_START = "page_data_load_start"
         const val PAGE_DATA_LOAD_END = "page_data_load_end"
 
+        const val WEB_EXTRA_URL = "page_data_load_end"
+        const val WEB_EXTRA_TITLE = "web_extra_title"
+        const val WEB_EXTRA_NEED_DECODE = "web_extra_need_decode"
+
+
+
 
     }
 
