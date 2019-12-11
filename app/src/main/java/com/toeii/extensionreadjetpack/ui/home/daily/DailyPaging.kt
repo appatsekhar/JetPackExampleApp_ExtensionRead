@@ -5,7 +5,7 @@ import androidx.paging.PageKeyedDataSource
 import com.toeii.extensionreadjetpack.common.CoroutineBus
 import com.toeii.extensionreadjetpack.common.safeLaunch
 import com.toeii.extensionreadjetpack.config.ERAppConfig
-import com.toeii.extensionreadjetpack.entity.EventMessage
+import com.toeii.extensionreadjetpack.common.EventMessage
 import com.toeii.extensionreadjetpack.entity.HomeDailyItemListBean
 import com.toeii.extensionreadjetpack.network.RetrofitManager
 import kotlinx.coroutines.*
@@ -34,7 +34,8 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
                     EventMessage(
                         DailyFragment::class.java.name
                                 + ERAppConfig.PAGE_DATA_INIT,
-                        null)
+                        null
+                    )
                 )
             }
         }
@@ -45,7 +46,8 @@ class DailyDataSource(private val repository: DailyRepository) : PageKeyedDataSo
             EventMessage(
                 DailyFragment::class.java.name
                         + ERAppConfig.PAGE_DATA_LOAD_END,
-                null)
+                null
+            )
         )
     }
 

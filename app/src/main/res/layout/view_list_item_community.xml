@@ -62,7 +62,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_size_16"
                 android:layout_below="@id/daily_icon"
-                android:maxLines="3"
                 android:ellipsize="end"
                 android:layout_marginTop="@dimen/space_8"
                 android:layout_marginLeft="@dimen/space_10"
@@ -81,7 +80,7 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:layout_marginLeft="@dimen/space_10"
                 android:layout_marginRight="@dimen/space_10"
-                app:imageUrl="@{item.data.content.data.cover.feed}"
+                app:imageUrl="@{item.data.content.data.cover.detail}"
         />
 
 

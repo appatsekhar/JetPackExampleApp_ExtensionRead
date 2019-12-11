@@ -49,14 +49,13 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(){
         mAboutAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { _, _, position ->
             when (position) {
                 0 -> {
-                    toast("nav_project_main")
+                    openWebView(mDatas[position],"https://github.com/toeii/JetPackExampleApp_ExtensionRead/")
                 }
                 1 -> {
-                    toast("nav_browse_record")
                     startFragment(BrowseRecordFragment())
                 }
                 2 -> {
-                    toast("nav_about_author")
+                    openWebView(mDatas[position],"https://toeii.github.io/about/")
                 }
             }
         }

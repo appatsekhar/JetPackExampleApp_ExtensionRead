@@ -20,6 +20,8 @@ import com.toeii.extensionreadjetpack.databinding.ViewListItemFooterBinding
 import com.toeii.extensionreadjetpack.databinding.ViewListItemHeaderBinding
 import com.toeii.extensionreadjetpack.entity.OpenEyeItemResult
 import com.toeii.extensionreadjetpack.entity.OpenEyeResult
+import com.toeii.extensionreadjetpack.ui.widgets.PreviewDialog
+import org.jetbrains.anko.image
 
 class CommunityItemAdapter: BaseQuickAdapter<OpenEyeItemResult, BaseViewHolder>(R.layout.view_list_item_community_sort) {
 
@@ -94,19 +96,8 @@ class CommunityViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             mBinding.item = item
         }
         mBinding.root.setOnClickListener {
-
-//            @ColumnInfo(name = "point_id") val pointId: String,
-//            @ColumnInfo(name = "title") val title: String,
-//            @ColumnInfo(name = "content") val content: String,
-//            @ColumnInfo(name = "url") val url: String,
-//            @ColumnInfo(name = "image") val image: String
-
-//            //TODO db
-//            val data = BrowseRecordBean(
-//                item.id,item.data.header.id,item.data.header.issuerName,item.data.content.data.description,item.data.content.data.we,item.data.content.data.cover.feed
-//            )
-//
-//            ERApplication.db.browseRecordDao().insert(data)
+            val dialog = PreviewDialog(itemView.context,mBinding.dailyCover.image!!)
+            dialog.show()
         }
     }
 

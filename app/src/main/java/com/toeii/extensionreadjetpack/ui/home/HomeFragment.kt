@@ -85,14 +85,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), NavigationView.OnNavig
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_project_main -> {
-                toast("nav_project_main")
+                openWebView(item.title.toString(),"https://github.com/toeii/JetPackExampleApp_ExtensionRead/")
             }
             R.id.nav_browse_record -> {
-                toast("nav_browse_record")
                 startFragment(BrowseRecordFragment())
             }
             R.id.nav_about_author -> {
-                toast("nav_about_author")
+                openWebView(item.title.toString(),"https://toeii.github.io/about/")
             }
         }
         return true

@@ -12,7 +12,7 @@ import com.toeii.extensionreadjetpack.ui.widgets.SpacesItemDecoration
 import com.toeii.extensionreadjetpack.common.UI
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.databinding.*
-import com.toeii.extensionreadjetpack.entity.EventMessage
+import com.toeii.extensionreadjetpack.common.EventMessage
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.entity.HomeRecommendItemListBean

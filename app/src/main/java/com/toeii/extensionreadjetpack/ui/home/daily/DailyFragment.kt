@@ -16,7 +16,7 @@ import com.toeii.extensionreadjetpack.common.UI
 import com.toeii.extensionreadjetpack.common.db.BrowseRecordBean
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.databinding.FragmentDailyBinding
-import com.toeii.extensionreadjetpack.entity.EventMessage
+import com.toeii.extensionreadjetpack.common.EventMessage
 import com.toeii.extensionreadjetpack.entity.HomeDailyItemListBean
 import com.toeii.extensionreadjetpack.interfaces.OnItemClickListener
 import org.jetbrains.anko.doAsync

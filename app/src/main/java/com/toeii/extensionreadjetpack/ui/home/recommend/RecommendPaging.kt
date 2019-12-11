@@ -7,7 +7,7 @@ import com.toeii.extensionreadjetpack.entity.RecommendBannerItem
 import com.toeii.extensionreadjetpack.network.RetrofitManager
 import com.toeii.extensionreadjetpack.common.safeLaunch
 import com.toeii.extensionreadjetpack.config.ERAppConfig
-import com.toeii.extensionreadjetpack.entity.EventMessage
+import com.toeii.extensionreadjetpack.common.EventMessage
 import com.toeii.extensionreadjetpack.entity.HomeRecommendItemListBean
 import kotlinx.coroutines.*
 
@@ -15,12 +15,14 @@ class RecommendRepository {
 
     suspend fun getHomeRecommendList(page: Int): List<HomeRecommendItemListBean>? = withContext(Dispatchers.IO) {
         val result = RetrofitManager.apiService.getHomeRecommendList(page.toString()).itemList
-        val bannerData =  getHomeRecommendBannerList()
-        if(bannerData!!.isNotEmpty()){
-            val filterData = bannerData.filter {
-                it?.data?.author != null
+        if(page == 1){
+            val bannerData =  getHomeRecommendBannerList()
+            if(bannerData!!.isNotEmpty()){
+                val filterData = bannerData.filter {
+                    it?.data?.author != null
+                }
+                result[0].bannerData = filterData
             }
-            result[0].bannerData = filterData
         }
         result
     }
@@ -49,7 +51,8 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
                     EventMessage(
                         RecommendFragment::class.java.name
                                 + ERAppConfig.PAGE_DATA_INIT,
-                        null)
+                        null
+                    )
                 )
             }
         }
@@ -65,7 +68,8 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
                         EventMessage(
                             RecommendFragment::class.java.name
                                     + ERAppConfig.PAGE_DATA_LOAD_START,
-                            null)
+                            null
+                        )
                     )
                     isLoadStart = true
                 }
@@ -78,7 +82,8 @@ class RecommendDataSource(private val repository: RecommendRepository) :PageKeye
                     EventMessage(
                         RecommendFragment::class.java.name
                                 + ERAppConfig.PAGE_DATA_LOAD_END,
-                        null)
+                        null
+                    )
                 )
             }
         }

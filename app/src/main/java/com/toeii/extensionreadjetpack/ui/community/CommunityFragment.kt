@@ -15,7 +15,7 @@ import com.toeii.extensionreadjetpack.ui.widgets.SpacesItemDecoration
 import com.toeii.extensionreadjetpack.common.UI
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.databinding.FragmentCommunityBinding
-import com.toeii.extensionreadjetpack.entity.EventMessage
+import com.toeii.extensionreadjetpack.common.EventMessage
 import com.toeii.extensionreadjetpack.entity.OpenEyeItemResult
 import com.toeii.extensionreadjetpack.entity.OpenEyeResult
 

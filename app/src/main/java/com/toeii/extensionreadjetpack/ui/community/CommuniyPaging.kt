@@ -1,17 +1,15 @@
 package com.toeii.extensionreadjetpack.ui.community
 
 
-import android.util.Log
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.common.CoroutineBus
+import com.toeii.extensionreadjetpack.common.EventMessage
 import com.toeii.extensionreadjetpack.common.safeLaunch
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.entity.*
 import com.toeii.extensionreadjetpack.network.RetrofitManager
 import kotlinx.coroutines.*
-import org.jetbrains.anko.debug
 
 class CommunityRepository{
 
@@ -39,7 +37,8 @@ class  CommunityDataSource(private val repository: CommunityRepository,private v
                     EventMessage(
                         CommunityFragment::class.java.name
                                 + ERAppConfig.PAGE_DATA_INIT,
-                        null)
+                        null
+                    )
                 )
             }
         }
@@ -55,7 +54,8 @@ class  CommunityDataSource(private val repository: CommunityRepository,private v
                         EventMessage(
                             CommunityFragment::class.java.name
                                     + ERAppConfig.PAGE_DATA_LOAD_START,
-                            null)
+                            null
+                        )
                     )
                     isLoadStart = true
                 }
@@ -68,7 +68,8 @@ class  CommunityDataSource(private val repository: CommunityRepository,private v
                     EventMessage(
                         CommunityFragment::class.java.name
                                 + ERAppConfig.PAGE_DATA_LOAD_END,
-                        null)
+                        null
+                    )
                 )
             }
         }

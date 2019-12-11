@@ -41,64 +41,48 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //TODO 迁至外部gradle
-    def lifecycle_version = '2.2.0-alpha02'
-    def paging_version = '2.1.0-alpha01'
-    def room_version = '2.2.0-rc01'
-    def work_version = '2.1.0'
-    def navigation_version = '2.2.0-alpha01'
-    def anko_version = '0.10.8'
-    def permission_version = '2.0.1'
-    def adapter_version = '2.9.47'
-    def qmui_version = '1.4.0'
-    def qmui_arch_version = '0.6.1'
-    def appcompat_version = '1.0.2'
-    def ktxcore_version = '1.0.2'
-    def retrofit_version = '2.6.0'
-    def logging_version = '4.0.0'
-    def glide_version = '4.9.0'
-    def xbanner_version = 'androidx_v1.0.1'
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.core:core-ktx:$ktxcore_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompat_version"
+    implementation "androidx.core:core-ktx:$rootProject.ktxcore_version"
 
     // liveData and viewMode
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version"
     // paging
-    implementation "android.arch.paging:runtime:$paging_version"
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation "android.arch.paging:runtime:$rootProject.paging_version"
+    implementation "androidx.paging:paging-runtime-ktx:$rootProject.paging_version"
     // room
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
+    implementation "androidx.room:room-runtime:$rootProject.room_version"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.room_version"
     // work
-    implementation "androidx.work:work-runtime:$work_version"
-    implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation "androidx.work:work-runtime:$rootProject.work_version"
+    implementation "androidx.work:work-runtime-ktx:$rootProject.work_version"
     // navigation
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-runtime-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigation_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation_version"
+    implementation "androidx.navigation:navigation-runtime-ktx:$rootProject.navigation_version"
 
     // retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$logging_version"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$rootProject.retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.logging_version"
     // glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
+    // photoview
+    implementation "com.github.chrisbanes:PhotoView:$rootProject.photoview_version"
     // anko
-    implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "org.jetbrains.anko:anko:$rootProject.anko_version"
     // and permission
-    implementation "com.yanzhenjie.permission:x:$permission_version"
+    implementation "com.yanzhenjie.permission:x:$rootProject.permission_version"
     // qmui
-    implementation "com.qmuiteam:qmui:$qmui_version"
-    implementation "com.qmuiteam:arch:$qmui_arch_version"
-    annotationProcessor  "com.qmuiteam:arch-compiler:$qmui_arch_version"
+    implementation "com.qmuiteam:qmui:$rootProject.qmui_version"
+    implementation "com.qmuiteam:arch:$rootProject.qmui_arch_version"
+    annotationProcessor  "com.qmuiteam:arch-compiler:$rootProject.qmui_arch_version"
     // XBanner
-    implementation "com.github.xiaohaibin:XBanner:$xbanner_version"
+    implementation "com.github.xiaohaibin:XBanner:$rootProject.xbanner_version"
     // baseRecyclerViewAdapterHelper
-    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapter_version" //PagedListAdapter替代
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.adapter_version" //PagedListAdapter替代
 
 }
