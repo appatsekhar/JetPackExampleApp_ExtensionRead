@@ -19,63 +19,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <com.qmuiteam.qmui.widget.QMUITopBar
-                    android:id="@+id/home_topbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_68"
-                    android:gravity="bottom"
-                    android:background="@color/app_color"
-            >
-
-                <RelativeLayout
+                <com.qmuiteam.qmui.widget.QMUITopBar
+                        android:id="@+id/home_topbar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_height="@dimen/space_68"
+                        android:gravity="bottom"
                 >
 
-                    <ImageView
-                            android:id="@+id/home_menu"
-                            android:layout_width="@dimen/space_48"
-                            android:layout_height="@dimen/space_48"
-                            android:src="@mipmap/icon_home_menu"
-                            android:padding="@dimen/space_10"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentBottom="true"
-                    />
-
-                    <ImageView
-                            android:id="@+id/home_menu_right"
-                            android:layout_width="@dimen/space_48"
-                            android:layout_height="@dimen/space_48"
-                            android:padding="@dimen/space_10"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentBottom="true"
-                            android:visibility="invisible"
-                    />
-
-                    <com.qmuiteam.qmui.widget.QMUITabSegment
-                            android:id="@+id/home_tabs"
-                            android:textSize="12sp"
+                    <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/space_48"
-                            android:layout_marginTop="@dimen/space_20"
-                            android:background="@color/app_color"
-                            android:layout_toLeftOf="@id/home_menu_right"
-                            android:layout_toRightOf="@id/home_menu"
-                            android:layout_alignParentBottom="true"
-                    />
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                    >
 
-                </RelativeLayout>
+                        <ImageView
+                                android:id="@+id/home_menu"
+                                android:layout_width="@dimen/space_48"
+                                android:layout_height="@dimen/space_48"
+                                android:src="@mipmap/icon_home_menu"
+                                android:padding="@dimen/space_10"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentBottom="true"
+                        />
 
-            </com.qmuiteam.qmui.widget.QMUITopBar>
+                        <ImageView
+                                android:id="@+id/home_menu_right"
+                                android:layout_width="@dimen/space_48"
+                                android:layout_height="@dimen/space_48"
+                                android:padding="@dimen/space_10"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentBottom="true"
+                                android:visibility="invisible"
+                        />
 
-            <com.qmuiteam.qmui.widget.QMUIViewPager
-                    android:id="@+id/home_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    android:layout_marginTop="@dimen/space_68"
-            />
+                        <com.qmuiteam.qmui.widget.QMUITabSegment
+                                android:id="@+id/home_tabs"
+                                android:textSize="12sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/space_48"
+                                android:layout_marginTop="@dimen/space_20"
+                                android:background="@color/app_color"
+                                android:layout_toLeftOf="@id/home_menu_right"
+                                android:layout_toRightOf="@id/home_menu"
+                                android:layout_alignParentBottom="true"
+                        />
+
+                    </RelativeLayout>
+
+                </com.qmuiteam.qmui.widget.QMUITopBar>
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="@dimen/space_20"
+                      android:background="@color/app_color"
+                />
+
+                <com.qmuiteam.qmui.widget.QMUIViewPager
+                        android:id="@+id/home_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        android:layout_marginTop="@dimen/space_68"
+                />
 
         </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
 
