@@ -1,8 +1,6 @@
 package com.toeii.extensionreadjetpack.ui.community
 
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
@@ -10,19 +8,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
-import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
 import com.toeii.extensionreadjetpack.common.CoroutineBus
-import com.toeii.extensionreadjetpack.common.SpacesItemDecoration
+import com.toeii.extensionreadjetpack.ui.widgets.SpacesItemDecoration
 import com.toeii.extensionreadjetpack.common.UI
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.databinding.FragmentCommunityBinding
 import com.toeii.extensionreadjetpack.entity.EventMessage
 import com.toeii.extensionreadjetpack.entity.OpenEyeItemResult
 import com.toeii.extensionreadjetpack.entity.OpenEyeResult
-import com.toeii.extensionreadjetpack.interfaces.OnItemClickListener
-import org.jetbrains.anko.debug
 
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(){
 

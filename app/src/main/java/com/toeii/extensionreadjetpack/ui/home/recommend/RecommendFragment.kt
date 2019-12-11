@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
 import com.toeii.extensionreadjetpack.base.*
 import com.toeii.extensionreadjetpack.common.CoroutineBus
-import com.toeii.extensionreadjetpack.common.SpacesItemDecoration
+import com.toeii.extensionreadjetpack.ui.widgets.SpacesItemDecoration
 import com.toeii.extensionreadjetpack.common.UI
 import com.toeii.extensionreadjetpack.config.ERAppConfig
 import com.toeii.extensionreadjetpack.databinding.*

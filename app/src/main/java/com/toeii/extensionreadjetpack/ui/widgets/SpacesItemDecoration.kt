@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.common
+package com.toeii.extensionreadjetpack.ui.widgets
 
 import android.graphics.Rect
 import android.view.View

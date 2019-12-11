@@ -11,6 +11,7 @@ import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUITabSegment
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
+import com.toeii.extensionreadjetpack.common.utils.DrawableTintHelper
 import com.toeii.extensionreadjetpack.databinding.FragmentMainBinding
 import com.toeii.extensionreadjetpack.ui.about.AboutFragment
 import com.toeii.extensionreadjetpack.ui.community.CommunityFragment
@@ -36,7 +37,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(){
             val tab = when (position) {
                 1 ->QMUITabSegment.Tab(
                     ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_home),
-                    ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_home_selected),
+                    ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_home_selected),//TODO textview上无法着色
                     "首页", true)
                 2 ->QMUITabSegment.Tab(
                     ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_community),

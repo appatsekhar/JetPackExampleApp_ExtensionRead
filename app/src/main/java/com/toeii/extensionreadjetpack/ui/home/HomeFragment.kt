@@ -91,9 +91,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), NavigationView.OnNavig
                 toast("nav_browse_record")
                 startFragment(BrowseRecordFragment())
             }
-            R.id.nav_check_theme -> {
-                toast("nav_check_theme")
-            }
             R.id.nav_about_author -> {
                 toast("nav_about_author")
             }

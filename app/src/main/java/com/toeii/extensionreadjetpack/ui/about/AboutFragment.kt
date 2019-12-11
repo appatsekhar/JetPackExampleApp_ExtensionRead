@@ -19,12 +19,11 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(){
     private val mDatas = ArrayList<String>()
 
     init {
-        for(position in 0..3){
+        for(position in 0..2){
             val str = when (position) {
                 0 -> "项目主页"
                 1 -> "浏览记录"
-                2 -> "切换主题"
-                3 -> "关于作者"
+                2 -> "关于作者"
                 else -> null
             }
             if(null != str){
@@ -57,10 +56,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(){
                     startFragment(BrowseRecordFragment())
                 }
                 2 -> {
-                    toast("nav_check_theme")
-                    showSingleChoiceDialog()
-                }
-                3 -> {
                     toast("nav_about_author")
                 }
             }

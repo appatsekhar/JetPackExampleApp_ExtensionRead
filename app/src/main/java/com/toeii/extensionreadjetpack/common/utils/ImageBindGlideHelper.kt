@@ -1,4 +1,4 @@
-package com.toeii.extensionreadjetpack.common
+package com.toeii.extensionreadjetpack.common.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

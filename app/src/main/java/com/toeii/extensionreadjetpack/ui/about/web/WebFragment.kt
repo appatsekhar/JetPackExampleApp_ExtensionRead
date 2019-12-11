@@ -142,7 +142,6 @@ open class WebFragment : BaseFragment<FragmentWebviewBinding>(){
 
         override fun onProgressChanged(view: WebView, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
-            // 修改进度条
             if (newProgress > mFragment.mProgressHandler.mDstProgressIndex) {
                 mFragment.sendProgressMessage(mFragment.PROGRESS_PROCESS, newProgress, 100)
             }

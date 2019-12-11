@@ -11,7 +11,7 @@ import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
 import com.toeii.extensionreadjetpack.common.CoroutineBus
-import com.toeii.extensionreadjetpack.common.SpacesItemDecoration
+import com.toeii.extensionreadjetpack.ui.widgets.SpacesItemDecoration
 import com.toeii.extensionreadjetpack.common.UI
 import com.toeii.extensionreadjetpack.common.db.BrowseRecordBean
 import com.toeii.extensionreadjetpack.config.ERAppConfig
