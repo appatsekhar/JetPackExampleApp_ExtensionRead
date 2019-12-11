@@ -32,8 +32,8 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxHeight="2dp"
-                    android:minHeight="2dp"
+                    android:maxHeight="1dp"
+                    android:minHeight="1dp"
                     android:layout_gravity="bottom"
                     android:background="@color/app_color"
                     android:progressDrawable="@drawable/web_explorer_progress"/>
