@@ -13,13 +13,13 @@ Build Extension Read App in Android JetPack MVVM.
 ### Show some :heart: and star the repo to support the project
 
 ### Screenshots
-![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/icon_screenshots.png)
+![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/blob/master/images/icon_screenshots.png)
 
 ### Egg
-![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/jetpack_extension_read_egg.png)
+![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/blob/master/images/jetpack_extension_read_egg.png)
 
 ### Download APK
-![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/apk_download_code.png)
+![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/blob/master/images/apk_download_code.png)
 
 ### Framework
 
