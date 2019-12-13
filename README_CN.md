@@ -12,13 +12,13 @@
 ### 如果对你有所帮助:heart:，欢迎提出issues和start
 
 ### 截图
-<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/icon_screenshots.png" />
+![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/icon_screenshots.png)
 
 ### 脑图
-<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/jetpack_extension_read_egg.png" />
+![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/jetpack_extension_read_egg.png)
 
 ### 下载 APK
-<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/apk_download_code.png" />
+![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/tree/master/images/apk_download_code.png)
 
 ### 第三方框架
 
