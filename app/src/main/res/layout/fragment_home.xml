@@ -90,7 +90,9 @@
                 android:layout_gravity="start"
                 android:fitsSystemWindows="true"
                 app:headerLayout="@layout/view_nav_header_home"
-                app:menu="@menu/activity_home_drawer"/>
+                app:menu="@menu/activity_home_drawer"
+                android:background="@android:color/white"
+        />
 
 
 
