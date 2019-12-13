@@ -1,9 +1,9 @@
-![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/images/icon_jetpack.png)
+![](https://github.com/toeii/JetPackExampleApp_ExtensionRead/blob/master/images/icon_jetpack.png)
 # 拓意阅读JetPack版
 
 一款清新简单的阅读类App。应用数据来源开眼api，项目简单易懂，对想学习Android JetPack MVVM架构的人非常友好
 
-[English Click](https://github.com/toeii/JetPackExampleApp_ExtensionRead/README.md)
+[English Click](https://github.com/toeii/JetPackExampleApp_ExtensionRead/blob/master/README.md)
 
 ## 其他版本
 
@@ -12,13 +12,13 @@
 ### 如果对你有所帮助:heart:，欢迎提出issues和start
 
 ### 截图
-<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/images/icon_screenshots.jpg" />
+<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/blob/master/images/icon_screenshots.jpg" />
 
 ### 脑图
-<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/images/jetpack_extension_read_egg.jpg" />
+<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/blob/master/images/jetpack_extension_read_egg.jpg" />
 
 ### 下载 APK
-<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/images/apk_download_code.png" />
+<img src="https://github.com/toeii/JetPackExampleApp_ExtensionRead/blob/master/images/apk_download_code.png" />
 
 ### 第三方框架
 
