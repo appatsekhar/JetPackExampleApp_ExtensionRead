@@ -42,7 +42,7 @@
             android:id="@+id/nav_sub_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="本项目仅供学习与参考"
+            android:text="@string/str_app_description"
             android:layout_below="@id/nav_title"
             android:textColor="@color/qmui_config_color_white"
             android:textSize="@dimen/text_size_16"

@@ -49,8 +49,8 @@ class BrowseRecordFragment : BaseFragment<FragmentBrowseRecordBinding>(){
 
     override fun initView(view: View) {
 
-        mBinding.topbar.setTitle("浏览记录")
-        rightButton = mBinding.topbar.addRightTextButton("删除",R.id.topbar_right_delete)
+        mBinding.topbar.setTitle(getString(R.string.str_browse_record))
+        rightButton = mBinding.topbar.addRightTextButton(getString(R.string.str_delete),R.id.topbar_right_delete)
         rightButton.setTextColor(Color.WHITE)
 
         mRecyclerView.layoutManager = object : LinearLayoutManager(context) {
@@ -80,17 +80,17 @@ class BrowseRecordFragment : BaseFragment<FragmentBrowseRecordBinding>(){
 
         rightButton.setOnClickListener {
                 QMUIDialog.MessageDialogBuilder(activity)
-                    .setTitle("提示")
-                    .setMessage("确定要删除吗？")
-                    .addAction("取消") { dialog, index -> dialog.dismiss() }
+                    .setTitle(getString(R.string.str_hint))
+                    .setMessage(getString(R.string.str_re_delete))
+                    .addAction(getString(R.string.str_cancel)) { dialog, index -> dialog.dismiss() }
                     .addAction(
-                        0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE
+                        0, getString(R.string.str_delete), QMUIDialogAction.ACTION_PROP_NEGATIVE
                     ) { dialog, index ->
                         doAsync {
                             ERApplication.db.browseRecordDao().deleteAll()
                             uiThread {
                                 dialog.dismiss()
-                                Toast.makeText(activity, "删除成功", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, getString(R.string.str_delete_success), Toast.LENGTH_SHORT).show()
                                 initData()
                             }
                         }

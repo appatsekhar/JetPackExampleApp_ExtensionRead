@@ -8,16 +8,16 @@
         <item
                 android:id="@+id/nav_project_main"
                 android:icon="@mipmap/icon_tabbar_home"
-                android:title="项目主页"/>
+                android:title="@string/str_project_index"/>
         <item
                 android:id="@+id/nav_browse_record"
                 android:icon="@mipmap/icon_browse_record"
-                android:title="浏览记录"/>
+                android:title="@string/str_browse_record"/>
 
         <item
                 android:id="@+id/nav_about_author"
                 android:icon="@mipmap/icon_about_author"
-                android:title="关于作者"/>
+                android:title="@string/str_about_author"/>
 
     </group>
 

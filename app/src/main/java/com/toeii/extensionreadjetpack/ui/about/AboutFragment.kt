@@ -5,11 +5,11 @@ import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.toeii.extensionreadjetpack.ERApplication
 import com.toeii.extensionreadjetpack.R
 import com.toeii.extensionreadjetpack.base.BaseFragment
 import com.toeii.extensionreadjetpack.databinding.FragmentAboutBinding
 import com.toeii.extensionreadjetpack.ui.about.history.BrowseRecordFragment
-import org.jetbrains.anko.support.v4.toast
 import java.util.ArrayList
 
 class AboutFragment : BaseFragment<FragmentAboutBinding>(){
@@ -21,9 +21,9 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(){
     init {
         for(position in 0..2){
             val str = when (position) {
-                0 -> "项目主页"
-                1 -> "浏览记录"
-                2 -> "关于作者"
+                0 -> ERApplication.instance.getString(R.string.str_project_index)
+                1 -> ERApplication.instance.getString(R.string.str_browse_record)
+                2 -> ERApplication.instance.getString(R.string.str_about_author)
                 else -> null
             }
             if(null != str){
@@ -62,7 +62,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(){
 
     }
 
-    private fun showSingleChoiceDialog() {
+    private fun showSingleChoiceDialog() { //TODO 功能搁置。QMUI多数控件无法动态着色
         val items = arrayOf("默认主题", "主题1", "主题2", "主题3", "主题4", "主题5", "主题6")
         val checkedIndex = 0
         QMUIDialog.CheckableDialogBuilder(activity)

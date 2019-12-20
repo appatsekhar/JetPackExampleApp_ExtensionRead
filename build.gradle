@@ -6,7 +6,7 @@ buildscript {
         gradle_version = '3.4.1'
         lifecycle_version = '2.2.0-alpha02'
         paging_version = '2.1.0-alpha01'
-        room_version = '2.2.0-rc01'
+        room_version = '2.2.0'
         work_version = '2.1.0'
         navigation_version = '2.2.0-alpha01'
         anko_version = '0.10.8'

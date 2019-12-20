@@ -37,16 +37,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>(){
             val tab = when (position) {
                 1 ->QMUITabSegment.Tab(
                     ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_home),
-                    ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_home_selected),//TODO textview上无法着色
-                    "首页", true)
+                    ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_home_selected),//TODO icon无法动态着色，QMUITabSegment控件使用的是TextView。可以自定义QMUITabSegment，改为ImageView + TextView。
+                    resources.getString(R.string.str_home), true)
                 2 ->QMUITabSegment.Tab(
                     ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_community),
                     ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_community_selected),
-                    "社区", true)
+                    resources.getString(R.string.str_community), true)
                 3 ->QMUITabSegment.Tab(
                     ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_about),
                     ContextCompat.getDrawable(baseFragmentActivity, R.mipmap.icon_tabbar_about_selected),
-                    "关于", true)
+                    resources.getString(R.string.str_about), true)
                 else -> null
             }
             if(null != tab){

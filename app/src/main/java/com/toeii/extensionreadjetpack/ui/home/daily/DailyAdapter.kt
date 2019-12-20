@@ -88,7 +88,7 @@ class DailyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             mBinding.rlDailyLayout.layoutParams.height = 0
         }else{
             mBinding.rlDailyLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            data.data.header.iconType = "发布："
+            data.data.header.iconType = mBinding.root.resources.getString(R.string.str_release)+"："
             data.data.header.issuerName = data.data.content.data.author.name
             data.data.header.icon = data.data.content.data.author.icon
             data.data.header.iconType = data.data.content.data.author.description

@@ -10,6 +10,23 @@
 
     <string name="str_home_recommend_wonderful">精彩推荐</string>
 
+    <string name="str_home">首页</string>
+    <string name="str_community">社区</string>
+    <string name="str_about">关于</string>
+
+    <string name="str_release">发布</string>
+    <string name="str_delete">删除</string>
+    <string name="str_delete_success">删除成功</string>
+    <string name="str_cancel">取消</string>
+    <string name="str_hint">提示</string>
+    <string name="str_re_delete">确定要删除吗？</string>
+
+    <string name="str_project_index">项目主页</string>
+    <string name="str_browse_record">浏览记录</string>
+    <string name="str_about_author">关于作者</string>
+
+    <string name="str_app_description">本项目仅供学习与参考</string>
+
 
 
 </resources>
